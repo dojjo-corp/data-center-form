@@ -1,0 +1,3059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NITA — Data Centre Operational Registration | Stage 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════
+   DESIGN SYSTEM — NITA Operational Registration
+   Tone: Authoritative · Clean · Official-grade
+   Palette: Stone grey dominant + NITA Forest Green
+   ════════════════════════════════════════════════ */
+:root {
+  /* NITA Green palette */
+  --g900: #0d3d20;
+  --g800: #145a30;
+  --g700: #1a6b3a;
+  --g600: #237a47;
+  --g500: #2e9157;
+  --g400: #4caa72;
+  --g300: #7ecb9a;
+  --g200: #b8e4c9;
+  --g100: #e0f4e8;
+  --g50:  #f2fbf5;
+
+  /* Stone grey palette */
+  --s950: #0e1211;
+  --s900: #161d1b;
+  --s800: #202926;
+  --s700: #2d3a37;
+  --s600: #3e5250;
+  --s500: #536866;
+  --s400: #7a9290;
+  --s300: #a8bcba;
+  --s200: #cdd9d8;
+  --s150: #dde7e6;
+  --s100: #eaf1f0;
+  --s50:  #f4f8f7;
+  --white: #ffffff;
+
+  /* Semantic */
+  --amber: #b45309;
+  --amber-bg: #fffbeb;
+  --amber-border: #fcd34d;
+  --red: #b91c1c;
+  --red-light: #fef2f2;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+
+  /* Spacing */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+  --shadow-card-hover: 0 4px 8px rgba(0,0,0,.08), 0 12px 32px rgba(0,0,0,.1);
+  --shadow-btn: 0 2px 8px rgba(26,107,58,.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--s50);
+  color: var(--s700);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  background: var(--s900);
+  padding: 8px 0;
+  text-align: center;
+}
+.topbar p {
+  font-size: 11.5px;
+  color: var(--s400);
+  letter-spacing: .04em;
+}
+.topbar span { color: var(--g400); font-weight: 600; }
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--s150);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 20px rgba(0,0,0,.07);
+}
+.header-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 28px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo-icon {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--g700) 0%, var(--g900) 100%);
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(26,107,58,.3);
+}
+.logo-icon svg { width: 24px; height: 24px; }
+.logo-info {}
+.logo-name { font-family: var(--font-display); font-size: 16px; color: var(--g700); font-weight: 700; line-height: 1.1; }
+.logo-sub { font-size: 10px; color: var(--s400); text-transform: uppercase; letter-spacing: .08em; margin-top: 1px; }
+
+.stage-pill {
+  display: flex; align-items: center; gap: 16px;
+}
+.prev-stage {
+  font-size: 11.5px; color: var(--s400);
+  display: flex; align-items: center; gap: 6px;
+}
+.prev-stage svg { width: 14px; height: 14px; stroke: var(--g400); fill: none; stroke-width: 2; }
+.curr-stage {
+  background: var(--g700);
+  color: white;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+/* ── PROGRESS STRIP ── */
+.progress-strip {
+  background: var(--white);
+  border-bottom: 1px solid var(--s100);
+  padding: 10px 28px;
+}
+.progress-strip-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.prog-steps { display: flex; gap: 0; flex: 1; }
+.prog-step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: var(--s400);
+  position: relative;
+}
+.prog-step.done .step-dot { background: var(--g600); border-color: var(--g600); }
+.prog-step.done .step-dot::after { content: '✓'; font-size: 9px; color: white; font-weight: 700; }
+.prog-step.active .step-dot { border-color: var(--g600); background: white; box-shadow: 0 0 0 3px var(--g100); }
+.prog-step.active .step-dot::after { content: ''; width: 7px; height: 7px; background: var(--g600); border-radius: 50%; }
+.prog-step.active .step-label { color: var(--g700); font-weight: 600; }
+.step-dot {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--s200);
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; z-index: 1;
+  font-size: 9px; color: var(--s400); font-weight: 700;
+}
+.step-connector {
+  flex: 1;
+  height: 2px;
+  background: var(--s150);
+  margin: 0 4px;
+}
+.step-connector.done { background: var(--g400); }
+.step-label { font-size: 10.5px; margin-left: 6px; white-space: nowrap; }
+.prog-pct-wrap { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.prog-bar { width: 100px; height: 5px; background: var(--s150); border-radius: 10px; overflow: hidden; }
+.prog-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--g700), var(--g400)); border-radius: 10px; transition: width .5s ease; }
+.prog-pct { font-size: 12px; font-weight: 700; color: var(--g700); min-width: 36px; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--white);
+  border-bottom: 1px solid var(--s100);
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+.hero-layout {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 40px 28px 0;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+  align-items: end;
+}
+.hero-left { padding-bottom: 40px; }
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--g100);
+  border: 1px solid var(--g200);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--g700);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.hero-eyebrow-dot {
+  width: 7px; height: 7px;
+  background: var(--g500);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .6; transform: scale(.8); }
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.5vw, 40px);
+  color: var(--s900);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.hero h1 em { font-style: normal; color: var(--g700); }
+.hero-desc {
+  font-size: 14px;
+  color: var(--s500);
+  max-width: 520px;
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  padding: 18px 0;
+  border-top: 1px solid var(--s100);
+  border-bottom: 1px solid var(--s100);
+}
+.hero-stat {}
+.hero-stat-value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--g700);
+  font-weight: 700;
+  line-height: 1;
+}
+.hero-stat-label { font-size: 11px; color: var(--s400); margin-top: 3px; text-transform: uppercase; letter-spacing: .06em; }
+
+/* Hero right — stage transition visual */
+.hero-right {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+}
+.stage-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: 280px;
+}
+.flow-stage {
+  padding: 16px 18px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  position: relative;
+}
+.flow-stage.prev {
+  background: var(--s100);
+  border: 1px solid var(--s150);
+  border-bottom: none;
+  opacity: .7;
+}
+.flow-stage.curr {
+  background: linear-gradient(135deg, var(--g700), var(--g900));
+  color: white;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(26,107,58,.3);
+  padding: 20px 18px;
+}
+.flow-arrow {
+  display: flex; align-items: center; justify-content: center;
+  height: 28px;
+  background: var(--g100);
+  border-left: 1px solid var(--g200);
+  border-right: 1px solid var(--g200);
+}
+.flow-arrow svg { width: 14px; height: 14px; fill: var(--g600); }
+.flow-stage-num { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; opacity: .6; margin-bottom: 4px; }
+.flow-stage-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.flow-stage-sub { font-size: 11px; opacity: .7; }
+.flow-stage.curr .flow-stage-num { color: rgba(255,255,255,.7); }
+.flow-stage.curr .flow-stage-title { color: white; font-size: 15px; }
+.flow-stage.curr .flow-stage-sub { color: rgba(255,255,255,.75); }
+.flow-stage.prev .flow-stage-num { color: var(--s500); }
+.flow-stage.prev .flow-stage-title { color: var(--s600); }
+.flow-stage.prev .flow-stage-sub { color: var(--s400); }
+.flow-check {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: rgba(255,255,255,.9);
+  margin-top: 10px;
+}
+.flow-check svg { width: 12px; height: 12px; stroke: var(--g300); fill: none; stroke-width: 2; }
+
+/* ── LAYOUT ── */
+.page-layout {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 32px 28px 100px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ── SIDEBAR ── */
+.sidebar { position: sticky; top: 80px; }
+.sidebar-heading {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--s400);
+  padding: 0 8px;
+  margin-bottom: 8px;
+}
+.nav-list { list-style: none; }
+.nav-item { margin-bottom: 1px; }
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--s500);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all .18s;
+  cursor: pointer;
+}
+.nav-link:hover { background: var(--s100); color: var(--s700); }
+.nav-link.active { background: var(--g100); color: var(--g700); font-weight: 600; }
+.nav-badge {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--s150);
+  color: var(--s500);
+  font-size: 9.5px;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+}
+.nav-link.active .nav-badge { background: var(--g700); color: white; }
+.nav-link.complete .nav-badge { background: var(--g200); color: var(--g700); }
+.nav-link.complete .nav-badge::before { content: '✓'; }
+
+.sidebar-note {
+  margin-top: 20px;
+  background: linear-gradient(135deg, var(--g900), var(--g800));
+  border-radius: var(--radius-md);
+  padding: 16px;
+  color: rgba(255,255,255,.8);
+}
+.sidebar-note-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.sidebar-note-title svg { width: 14px; height: 14px; stroke: var(--g300); fill: none; stroke-width: 2; }
+.sidebar-note p { font-size: 11px; line-height: 1.65; }
+.sidebar-note a { color: var(--g300); text-decoration: none; }
+
+/* ── ALERT BANNER ── */
+.alert {
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.alert-icon svg { width: 20px; height: 20px; fill: var(--amber); flex-shrink: 0; }
+.alert-body {}
+.alert-title { font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 4px; }
+.alert-text { font-size: 12.5px; color: #78350f; line-height: 1.65; }
+.alert-text ul { padding-left: 18px; margin-top: 6px; }
+.alert-text li { margin-bottom: 3px; }
+
+/* ── SECTION CARDS ── */
+.form-section {
+  background: var(--white);
+  border: 1px solid var(--s150);
+  border-radius: var(--radius-xl);
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow .2s;
+}
+.form-section:target,
+.form-section:hover { box-shadow: var(--shadow-card-hover); }
+
+.section-head {
+  padding: 22px 28px;
+  border-bottom: 1px solid var(--s100);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(to right, var(--s50), var(--white));
+}
+.section-icon-wrap {
+  width: 42px; height: 42px;
+  border-radius: var(--radius-md);
+  background: var(--g100);
+  border: 1px solid var(--g200);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-icon-wrap svg {
+  width: 20px; height: 20px;
+  stroke: var(--g700);
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.section-meta {}
+.section-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--g600);
+  background: var(--g100);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+.section-title { font-family: var(--font-display); font-size: 17px; color: var(--s900); font-weight: 700; line-height: 1.2; }
+.section-subtitle { font-size: 12px; color: var(--s400); margin-top: 2px; line-height: 1.5; }
+
+/* Section for NITA use only */
+.section-head.locked {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--s50),
+    var(--s50) 8px,
+    var(--s100) 8px,
+    var(--s100) 16px
+  );
+}
+.locked-tag {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+  background: var(--s200); color: var(--s600);
+  padding: 3px 10px; border-radius: 20px;
+  margin-left: 8px;
+}
+
+.section-body { padding: 28px; }
+
+/* ── FIELD PRIMITIVES ── */
+.field-grid { display: grid; gap: 18px; margin-bottom: 18px; }
+.field-grid.g2 { grid-template-columns: 1fr 1fr; }
+.field-grid.g3 { grid-template-columns: 1fr 1fr 1fr; }
+.field-grid.g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.field-grid.g1 { grid-template-columns: 1fr; }
+.field-grid:last-child { margin-bottom: 0; }
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--s600);
+  letter-spacing: .01em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.req { color: var(--g600); font-size: 13px; line-height: 1; }
+.opt { font-size: 10px; color: var(--s400); font-weight: 400; }
+.field-hint { font-size: 11px; color: var(--s400); line-height: 1.55; }
+
+input[type=text],
+input[type=email],
+input[type=tel],
+input[type=number],
+input[type=url],
+input[type=date],
+select,
+textarea {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--s800);
+  background: var(--white);
+  border: 1.5px solid var(--s200);
+  border-radius: var(--radius-sm);
+  padding: 9px 13px;
+  outline: none;
+  transition: border-color .18s, box-shadow .18s;
+  width: 100%;
+  appearance: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--g600);
+  box-shadow: 0 0 0 3px var(--g100);
+}
+input:disabled, select:disabled, textarea:disabled {
+  background: var(--s50);
+  color: var(--s400);
+  cursor: not-allowed;
+  border-style: dashed;
+}
+input::placeholder, textarea::placeholder { color: var(--s300); font-size: 13px; }
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23a8bcba' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+textarea { resize: vertical; min-height: 88px; line-height: 1.65; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--s100); margin: 22px 0; }
+.divider-label {
+  display: flex; align-items: center; gap: 10px;
+  margin: 22px 0;
+}
+.divider-label::before, .divider-label::after { content: ''; flex: 1; height: 1px; background: var(--s100); }
+.divider-label span {
+  font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--s400);
+  white-space: nowrap;
+}
+
+/* ── CHECK ITEMS ── */
+.check-stack { display: flex; flex-direction: column; gap: 8px; }
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 16px;
+  border: 1.5px solid var(--s150);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all .15s;
+}
+.check-item:hover { border-color: var(--g400); background: var(--g50); }
+.check-item input[type=checkbox],
+.check-item input[type=radio] {
+  width: 17px; height: 17px;
+  accent-color: var(--g700);
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 1px;
+  border: none; /* reset */
+  padding: 0;
+}
+.check-label { flex: 1; font-size: 13px; color: var(--s700); line-height: 1.45; }
+.check-label small { display: block; font-size: 11px; color: var(--s400); margin-top: 2px; line-height: 1.5; }
+
+/* ── COMPLIANCE TABLE ── */
+.comp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.comp-table thead tr { background: var(--s50); }
+.comp-table th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--s400);
+  border-bottom: 2px solid var(--s150);
+  white-space: nowrap;
+}
+.comp-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--s100);
+  vertical-align: middle;
+}
+.comp-table tbody tr:last-child td { border-bottom: none; }
+.comp-table tbody tr:hover td { background: var(--s50); }
+.comp-table td:first-child { font-weight: 600; color: var(--s700); }
+.comp-table .ref-num { font-size: 11px; color: var(--s400); font-weight: 700; }
+.comp-table .radio-pair { display: flex; gap: 12px; align-items: center; }
+.comp-table .radio-pair label { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--s500); cursor: pointer; }
+.comp-table .radio-pair input[type=radio] { accent-color: var(--g700); width: 15px; height: 15px; border: none; padding: 0; flex-shrink: 0; }
+
+/* ── UPLOAD ROW ── */
+.upload-list { display: flex; flex-direction: column; gap: 7px; }
+.upload-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 16px;
+  border: 1.5px dashed var(--s200);
+  border-radius: var(--radius-md);
+  transition: all .15s;
+  background: var(--s50);
+}
+.upload-row:hover { border-color: var(--g500); background: var(--g50); }
+.upload-row.has-file { border-color: var(--g400); border-style: solid; background: var(--g50); }
+.upload-row input[type=checkbox] {
+  width: 16px; height: 16px;
+  accent-color: var(--g700);
+  flex-shrink: 0;
+  border: none; padding: 0;
+  margin-top: 3px;
+}
+.upload-ref {
+  font-size: 11px; font-weight: 800;
+  color: var(--g700);
+  background: var(--g100);
+  padding: 3px 8px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  min-width: 36px;
+  text-align: center;
+  margin-top: 2px;
+}
+.upload-row.has-file .upload-ref { background: var(--g700); color: white; }
+.upload-info { flex: 1; min-width: 0; }
+.upload-info strong { display: block; font-size: 13px; font-weight: 600; color: var(--s800); }
+.upload-info span { font-size: 11.5px; color: var(--s400); line-height: 1.5; margin-top: 1px; display: block; }
+.upload-cta {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--g700);
+  background: var(--g100);
+  border: 1.5px solid var(--g200);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.upload-cta:hover { background: var(--g700); color: white; border-color: var(--g700); }
+.upload-cta.uploaded { background: var(--g700); color: white; border-color: var(--g700); }
+
+/* File chips */
+.file-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: white;
+  border: 1px solid var(--g200);
+  border-radius: 20px;
+  padding: 3px 8px 3px 7px;
+  font-size: 11px;
+  color: var(--g700);
+  font-weight: 500;
+  max-width: 240px;
+  font-family: var(--font-body);
+}
+.file-chip-icon { width: 12px; height: 12px; flex-shrink: 0; fill: var(--g600); }
+.file-chip-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-chip-size { color: var(--s400); font-size: 10px; flex-shrink: 0; }
+.file-chip-remove {
+  width: 14px; height: 14px;
+  background: var(--s150);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 9px;
+  color: var(--s600);
+  font-family: var(--font-body);
+  transition: background .12s;
+  line-height: 1;
+}
+.file-chip-remove:hover { background: #fee2e2; color: #b91c1c; }
+
+/* ── PDF PREVIEW MODAL ── */
+.pdf-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14,18,17,.7);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: ov-in .2s ease;
+}
+.pdf-overlay.open { display: flex; }
+@keyframes ov-in { from { opacity: 0; } to { opacity: 1; } }
+
+.pdf-modal {
+  background: var(--white);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 880px;
+  max-height: 93vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 32px 80px rgba(0,0,0,.4);
+  animation: modal-up .25s cubic-bezier(.22,.68,0,1.2);
+  overflow: hidden;
+}
+@keyframes modal-up {
+  from { transform: translateY(28px) scale(.97); opacity: 0; }
+  to   { transform: translateY(0)    scale(1);   opacity: 1; }
+}
+.pdf-modal-hd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px 16px;
+  border-bottom: 1px solid var(--s100);
+  flex-shrink: 0;
+}
+.pdf-modal-hd-left {}
+.pdf-modal-title { font-family: var(--font-display); font-size: 18px; color: var(--s900); font-weight: 700; }
+.pdf-modal-sub { font-size: 11.5px; color: var(--s400); margin-top: 2px; }
+.pdf-close-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--s100);
+  border: none; cursor: pointer;
+  font-size: 17px; color: var(--s500);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+  font-family: var(--font-body);
+}
+.pdf-close-btn:hover { background: var(--s200); color: var(--s800); }
+
+.pdf-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  background: var(--s50);
+  border-bottom: 1px solid var(--s100);
+  gap: 12px;
+  flex-shrink: 0;
+}
+.pdf-toolbar-left { display: flex; align-items: center; gap: 10px; }
+.pdf-draft-badge {
+  background: var(--g100);
+  border: 1px solid var(--g200);
+  color: var(--g700);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: var(--font-body);
+}
+.pdf-toolbar-info { font-size: 11.5px; color: var(--s400); }
+.pdf-dl-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--g700);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 18px;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s;
+}
+.pdf-dl-btn:hover { background: var(--g900); }
+.pdf-dl-btn svg { width: 14px; height: 14px; stroke: white; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+.pdf-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+  background: #e8eceb;
+}
+
+/* The A4 page */
+.pdf-page {
+  background: white;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 46px 52px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.12);
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-size: 9.5pt;
+  color: #1a1a1a;
+  line-height: 1.5;
+  position: relative;
+}
+
+/* Watermark */
+.pdf-wm {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%) rotate(-35deg);
+  font-size: 68px; font-weight: 900;
+  color: rgba(26,107,58,.05);
+  pointer-events: none;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  letter-spacing: .1em;
+  z-index: 0;
+}
+
+.pdf-ph {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 3px solid #1a6b3a;
+  margin-bottom: 18px;
+}
+.pdf-ph-logo { display: flex; align-items: center; gap: 10px; }
+.pdf-ph-mark {
+  width: 38px; height: 38px;
+  background: #1a6b3a;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.pdf-ph-mark svg { width: 22px; height: 22px; }
+.pdf-org { font-size: 14pt; font-weight: 700; color: #1a6b3a; font-family: var(--font-display); }
+.pdf-org-sub { font-size: 7pt; color: #777; text-transform: uppercase; letter-spacing: .06em; margin-top: 1px; }
+.pdf-ph-right { text-align: right; }
+.pdf-reg-type { font-size: 8.5pt; font-weight: 800; color: #1a6b3a; text-transform: uppercase; letter-spacing: .06em; }
+.pdf-ref-line { font-size: 7.5pt; color: #999; margin-top: 2px; }
+
+.pdf-doc-title-block { text-align: center; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #eee; }
+.pdf-doc-title { font-family: var(--font-display); font-size: 15pt; color: #111; margin-bottom: 3px; }
+.pdf-doc-subtitle { font-size: 8pt; color: #777; }
+
+.pdf-sec { margin-bottom: 16px; }
+.pdf-sec-hd {
+  background: #e0f4e8;
+  border-left: 4px solid #1a6b3a;
+  padding: 5px 12px;
+  font-size: 8.5pt;
+  font-weight: 800;
+  color: #1a6b3a;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 9px;
+  font-family: var(--font-body);
+}
+.pdf-r { display: flex; gap: 10px; margin-bottom: 5px; align-items: flex-start; }
+.pdf-lbl { font-size: 8pt; color: #555; font-weight: 700; min-width: 150px; flex-shrink: 0; padding-top: 2px; }
+.pdf-val { font-size: 8.5pt; color: #111; flex: 1; border-bottom: 1px solid #eee; padding-bottom: 3px; min-height: 16px; word-break: break-word; }
+.pdf-r.full { flex-direction: column; gap: 3px; }
+.pdf-r.full .pdf-lbl { min-width: auto; }
+.pdf-r.full .pdf-val { min-height: 30px; }
+
+.pdf-upload-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; padding: 5px 8px; background: #f7f7f7; border-radius: 4px; border: 1px solid #eee; }
+.pdf-up-ref { font-size: 7.5pt; font-weight: 800; color: #1a6b3a; min-width: 26px; font-family: var(--font-body); }
+.pdf-up-name { font-size: 8pt; color: #333; flex: 1; }
+.pdf-up-status { font-size: 8pt; font-weight: 700; white-space: nowrap; }
+.pdf-up-status.ok { color: #1a6b3a; }
+.pdf-up-status.no { color: #999; }
+
+.pdf-cb-row { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 4px; }
+.pdf-cb { width: 12px; height: 12px; border: 1.5px solid #aaa; border-radius: 2px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 8px; }
+.pdf-cb.on { background: #1a6b3a; border-color: #1a6b3a; color: white; font-weight: 700; }
+.pdf-cb-text { font-size: 8pt; color: #333; line-height: 1.45; }
+
+.pdf-decl { background: #f7f7f7; border: 1px solid #e0e0e0; border-radius: 3px; padding: 10px 12px; font-size: 8pt; color: #444; line-height: 1.7; margin-bottom: 10px; }
+
+.pdf-sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 18px; padding-top: 14px; border-top: 1px solid #eee; }
+.pdf-sig-lbl { font-size: 7.5pt; color: #999; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; font-family: var(--font-body); }
+.pdf-sig-line { border-bottom: 1.5px solid #111; height: 32px; }
+.pdf-sig-name { font-size: 7.5pt; color: #555; margin-top: 3px; }
+
+.pdf-pg-footer { margin-top: 22px; padding-top: 10px; border-top: 1px solid #eee; text-align: center; }
+.pdf-pg-footer p { font-size: 7pt; color: #aaa; line-height: 1.65; }
+
+/* ── SECTION GROUP HEADER ── */
+.group-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.group-head-line { flex: 1; height: 1px; background: var(--s100); }
+.group-label {
+  font-size: 10px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--s400);
+  white-space: nowrap;
+  padding: 0 4px;
+}
+
+/* ── SIGNATURE BLOCK ── */
+.sig-box {
+  border: 1.5px solid var(--s150);
+  border-radius: var(--radius-md);
+  min-height: 96px;
+  background: var(--s50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.sig-box:hover { border-color: var(--g600); background: var(--g50); }
+.sig-box svg { width: 24px; height: 24px; stroke: var(--s300); fill: none; stroke-width: 1.5; }
+.sig-box:hover svg { stroke: var(--g500); }
+.sig-box span { font-size: 12px; color: var(--s400); font-style: italic; }
+.sig-box:hover span { color: var(--g700); }
+
+/* ── DECLARATION BOX ── */
+.decl-box {
+  background: var(--s50);
+  border: 1.5px solid var(--s150);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  margin-bottom: 22px;
+}
+.decl-box p { font-size: 13px; color: var(--s600); line-height: 1.8; margin-bottom: 12px; }
+.decl-box p:last-child { margin-bottom: 0; }
+.decl-list { list-style: none; padding: 0; }
+.decl-list li {
+  font-size: 12.5px;
+  color: var(--s600);
+  line-height: 1.7;
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 6px;
+}
+.decl-list li::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 9px;
+  width: 5px; height: 5px;
+  background: var(--g600);
+  border-radius: 50%;
+}
+
+/* ── INFO GRID (Key facts) ── */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.info-card {
+  background: var(--g50);
+  border: 1px solid var(--g100);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+}
+.info-card-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--g600); margin-bottom: 4px; }
+.info-card-value { font-family: var(--font-display); font-size: 20px; color: var(--g800); font-weight: 700; line-height: 1.1; }
+.info-card-sub { font-size: 11px; color: var(--s400); margin-top: 3px; }
+
+/* ── FEE CARD ── */
+.fee-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.fee-card {
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  border: 1.5px solid var(--s150);
+}
+.fee-card.featured {
+  background: linear-gradient(135deg, var(--g700), var(--g900));
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(26,107,58,.25);
+}
+.fee-card-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--s400); margin-bottom: 8px; }
+.fee-card.featured .fee-card-label { color: rgba(255,255,255,.6); }
+.fee-card-amount { font-family: var(--font-display); font-size: 24px; color: var(--s900); font-weight: 700; line-height: 1; margin-bottom: 6px; }
+.fee-card.featured .fee-card-amount { color: white; }
+.fee-card-note { font-size: 11.5px; color: var(--s500); line-height: 1.55; }
+.fee-card.featured .fee-card-note { color: rgba(255,255,255,.7); }
+
+/* ── ACTION BAR ── */
+.action-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1060px;
+  background: var(--white);
+  border: 1px solid var(--s150);
+  border-radius: var(--radius-xl);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.14);
+  z-index: 100;
+}
+.action-info {}
+.action-info-title { font-size: 13px; font-weight: 700; color: var(--s800); }
+.action-info-sub { font-size: 11px; color: var(--s400); margin-top: 1px; }
+.action-btns { display: flex; gap: 10px; align-items: center; }
+.btn {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all .18s;
+  letter-spacing: .01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
+.btn-ghost { background: var(--s100); color: var(--s600); }
+.btn-ghost:hover { background: var(--s200); }
+.btn-outline { background: transparent; color: var(--g700); border: 1.5px solid var(--g300); }
+.btn-outline:hover { background: var(--g50); border-color: var(--g600); }
+.btn-primary {
+  background: linear-gradient(135deg, var(--g600), var(--g900));
+  color: white;
+  box-shadow: var(--shadow-btn);
+  padding: 10px 28px;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--g700), var(--g900));
+  box-shadow: 0 4px 16px rgba(26,107,58,.45);
+  transform: translateY(-1px);
+}
+
+/* ── FOOTER ── */
+.form-footer {
+  text-align: center;
+  padding: 24px;
+  margin-top: 16px;
+}
+.form-footer p { font-size: 11.5px; color: var(--s400); line-height: 1.8; }
+.form-footer a { color: var(--g600); text-decoration: none; }
+.form-footer a:hover { text-decoration: underline; }
+
+/* ── INLINE BADGES ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+.badge-green { background: var(--g100); color: var(--g700); }
+.badge-amber { background: #fef3c7; color: #92400e; }
+.badge-grey { background: var(--s100); color: var(--s600); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .page-layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .hero-layout { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .field-grid.g2, .field-grid.g3, .field-grid.g4 { grid-template-columns: 1fr; }
+  .fee-row { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { gap: 16px; flex-wrap: wrap; }
+  .prog-steps { display: none; }
+  .action-bar { left: 16px; right: 16px; width: auto; transform: none; }
+}
+
+/* ANIMATIONS */
+.form-section { animation: fadeUp .4s ease both; }
+.form-section:nth-child(2) { animation-delay: .05s; }
+.form-section:nth-child(3) { animation-delay: .1s; }
+.form-section:nth-child(4) { animation-delay: .15s; }
+.form-section:nth-child(5) { animation-delay: .2s; }
+.form-section:nth-child(6) { animation-delay: .25s; }
+.form-section:nth-child(7) { animation-delay: .3s; }
+.form-section:nth-child(8) { animation-delay: .35s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 108px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--s900);
+  color: white;
+  padding: 11px 22px;
+  border-radius: 40px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.28);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease, transform .28s ease;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.success { background: var(--g700); }
+.toast.error   { background: #b91c1c; }
+.toast-icon { font-size: 15px; flex-shrink: 0; }
+
+/* ── FIELD VALIDATION ── */
+.field-error input:not([disabled]),
+.field-error select:not([disabled]),
+.field-error textarea:not([disabled]) {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239,68,68,.12) !important;
+}
+.err-msg {
+  font-size: 11px;
+  color: #b91c1c;
+  font-weight: 700;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body);
+}
+.err-msg::before { content: '⚠'; }
+
+/* ── VALIDATION BANNER ── */
+.val-banner {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-left: 4px solid #ef4444;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  display: none;
+}
+.val-banner.show { display: block; }
+.val-banner-title { font-size: 13px; font-weight: 700; color: #991b1b; margin-bottom: 8px; font-family: var(--font-body); }
+.val-banner ul { padding-left: 18px; }
+.val-banner li { font-size: 12px; color: #b91c1c; line-height: 1.75; cursor: pointer; font-family: var(--font-body); }
+.val-banner li:hover { text-decoration: underline; }
+
+/* ── SUBMIT SUCCESS MODAL ── */
+.submit-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14,18,17,.72);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.submit-overlay.open { display: flex; animation: ov-fade .22s ease; }
+@keyframes ov-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.submit-modal {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 540px;
+  box-shadow: 0 32px 80px rgba(0,0,0,.45);
+  overflow: hidden;
+  animation: modal-pop .3s cubic-bezier(.22,.68,0,1.18);
+}
+@keyframes modal-pop {
+  from { transform: scale(.88) translateY(24px); opacity: 0; }
+  to   { transform: scale(1)   translateY(0);    opacity: 1; }
+}
+
+.sm-top {
+  background: linear-gradient(135deg, var(--g700) 0%, var(--g900) 100%);
+  padding: 40px 40px 32px;
+  text-align: center;
+}
+.sm-ring {
+  width: 72px; height: 72px;
+  background: rgba(255,255,255,.15);
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.28);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+.sm-ring svg { width: 36px; height: 36px; stroke: white; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.sm-heading { font-family: var(--font-display); font-size: 24px; color: white; margin-bottom: 8px; }
+.sm-sub { font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.65; font-family: var(--font-body); }
+
+.sm-body { padding: 28px 36px 32px; }
+
+.sm-ref-box {
+  background: var(--s50);
+  border: 1.5px solid var(--s150);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sm-ref-lbl { font-size: 10.5px; font-weight: 700; color: var(--s400); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; font-family: var(--font-body); }
+.sm-ref-num { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--s900); letter-spacing: .03em; }
+.sm-copy-btn {
+  background: var(--g100);
+  border: 1px solid var(--g200);
+  color: var(--g700);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.sm-copy-btn:hover { background: var(--g700); color: white; border-color: var(--g700); }
+
+.sm-steps { list-style: none; margin-bottom: 24px; }
+.sm-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--s100);
+  font-size: 12.5px;
+  color: var(--s600);
+  line-height: 1.5;
+  font-family: var(--font-body);
+}
+.sm-steps li:last-child { border-bottom: none; }
+.sm-step-n {
+  width: 22px; height: 22px;
+  background: var(--g100);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--g700);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-family: var(--font-body);
+}
+.sm-actions { display: flex; gap: 10px; }
+.sm-actions .btn { flex: 1; justify-content: center; }
+.btn-g-outline {
+  background: transparent;
+  border: 1.5px solid var(--g300);
+  color: var(--g700);
+}
+.btn-g-outline:hover { background: var(--g50); border-color: var(--g600); }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <p>NITA e-Government Portal &nbsp;·&nbsp; Data Centre Services Registration &nbsp;·&nbsp; <span>Operational Registration — Stage 2 of 2</span></p>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3L4 7v5c0 5.25 3.5 9.75 8 11 4.5-1.25 8-5.75 8-11V7l-8-4z" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M9 12l2 2 4-4" stroke="#7ecb9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="logo-info">
+        <div class="logo-name">NITA</div>
+        <div class="logo-sub">National Information Technology Agency</div>
+      </div>
+    </div>
+    <div class="stage-pill">
+      <div class="prev-stage">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Stage 1 Complete
+      </div>
+      <div class="curr-stage">Stage 2 — Operational Registration</div>
+    </div>
+  </div>
+</header>
+
+<!-- PROGRESS STRIP -->
+<div class="progress-strip">
+  <div class="progress-strip-inner">
+    <div class="prog-steps">
+      <div class="prog-step done">
+        <div class="step-dot"></div>
+        <span class="step-label">Applicant Info</span>
+      </div>
+      <div class="step-connector done"></div>
+      <div class="prog-step done">
+        <div class="step-dot"></div>
+        <span class="step-label">Facility Overview</span>
+      </div>
+      <div class="step-connector done"></div>
+      <div class="prog-step active">
+        <div class="step-dot"></div>
+        <span class="step-label">Final Approvals</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="prog-step">
+        <div class="step-dot"></div>
+        <span class="step-label">As-Built Docs</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="prog-step">
+        <div class="step-dot"></div>
+        <span class="step-label">Governance</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="prog-step">
+        <div class="step-dot"></div>
+        <span class="step-label">Declaration</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="prog-step">
+        <div class="step-dot"></div>
+        <span class="step-label">Fee Payment</span>
+      </div>
+    </div>
+    <div class="prog-pct-wrap">
+      <div class="prog-bar"><div class="prog-bar-fill" id="progFill"></div></div>
+      <div class="prog-pct" id="progPct">0%</div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-layout">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        Operational Registration Application
+      </div>
+      <h1>Data Centre <em>Operational</em><br>Registration Form</h1>
+      <p class="hero-desc">
+        This is Stage 2 of the two-stage Data Centre registration process. Issued pursuant to the National Information Technology Agency Act, 2008 (Act 771). Submit this form after completing construction to obtain authorisation to provide Data Centre Services to the public for a fee.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">5 yrs</div>
+          <div class="hero-stat-label">Certificate Validity</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">5 days</div>
+          <div class="hero-stat-label">Processing Time</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">Tier III+</div>
+          <div class="hero-stat-label">Min. Standard</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">Act 771</div>
+          <div class="hero-stat-label">Legal Authority</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stage-flow">
+        <div class="flow-stage prev">
+          <div class="flow-stage-num">Stage 1</div>
+          <div class="flow-stage-title">Construction Registration</div>
+          <div class="flow-stage-sub">Design & build phase — valid 24 months</div>
+        </div>
+        <div class="flow-arrow">
+          <svg viewBox="0 0 16 16"><path d="M8 3v10M8 13l-3-3M8 13l3-3"/></svg>
+        </div>
+        <div class="flow-stage curr">
+          <div class="flow-stage-num">Stage 2 — Current</div>
+          <div class="flow-stage-title">Operational Registration</div>
+          <div class="flow-stage-sub">Authorises provision of Data Centre Services to the public for a fee</div>
+          <div class="flow-check">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/></svg>
+            Certificate valid 5 years
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="page-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-heading">Form Sections</div>
+    <ul class="nav-list" id="sectionNav">
+      <li class="nav-item"><a class="nav-link active" href="#sec-a"><span class="nav-badge">A</span>Applicant Info</a></li>
+      <li class="nav-item"><a class="nav-link" href="#sec-b"><span class="nav-badge">B</span>Facility Overview</a></li>
+      <li class="nav-item"><a class="nav-link" href="#sec-c"><span class="nav-badge">C</span>Final Approvals</a></li>
+      <li class="nav-item"><a class="nav-link" href="#sec-d"><span class="nav-badge">D</span>As-Built Documents</a></li>
+      <li class="nav-item"><a class="nav-link" href="#sec-e"><span class="nav-badge">E</span>Governance & Policy</a></li>
+      <li class="nav-item"><a class="nav-link" href="#sec-f"><span class="nav-badge">F</span>Declaration</a></li>
+      <li class="nav-item"><a class="nav-link" href="#sec-g"><span class="nav-badge">G</span>NITA Review</a></li>
+      <li class="nav-item"><a class="nav-link" href="#sec-h"><span class="nav-badge">H</span>Fee Payment</a></li>
+    </ul>
+    <div class="sidebar-note">
+      <div class="sidebar-note-title">
+        <svg viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Key Reminder
+      </div>
+      <p>All <em>as-built</em> drawings must reflect the <strong style="color:white">actual constructed</strong> facility — not the original approved designs. NITA will conduct a site inspection before issuing the Operational Certificate.</p>
+    </div>
+  </aside>
+
+  <!-- FORM BODY -->
+  <main>
+
+    <!-- INSTRUCTIONS ALERT -->
+    <div class="alert">
+      <div class="alert-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 15h-2v-4h2v4zm0-6h-2V7h2v4z"/></svg>
+      </div>
+      <div class="alert-body">
+        <div class="alert-title">Instructions to Applicant — Please Read Before Proceeding</div>
+        <div class="alert-text">
+          <ul>
+            <li>This form is for <strong>Stage 2: Operational Registration</strong>. Submit only after construction is fully complete and Stage 1 Construction Registration has been granted.</li>
+            <li>All fields are mandatory unless marked <em>(optional)</em>. Incomplete applications will be rejected; a minimum of <strong>7 working days</strong> is granted for resubmission.</li>
+            <li>All technical documents uploaded in this form must be <strong>final as-built versions</strong> reflecting the actual constructed facility — not the original design drawings.</li>
+            <li>Upon acceptance, NITA will conduct an <strong>operational compliance site inspection</strong> before issuing the Certificate of Operational Registration.</li>
+            <li>The Certificate authorises the provision of Data Centre Services to the public for a fee and is <strong>valid for 5 years</strong>, renewable thereafter.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- VALIDATION BANNER -->
+    <div class="val-banner" id="valBanner">
+      <div class="val-banner-title">⚠ Please complete the following required fields before submitting:</div>
+      <ul id="valList"></ul>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION A: APPLICANT INFORMATION
+    ══════════════════════════════════════════════ -->
+    <div class="form-section" id="sec-a">
+      <div class="section-head">
+        <div class="section-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+        </div>
+        <div class="section-meta">
+          <span class="section-tag">Section A</span>
+          <div class="section-title">Applicant Information</div>
+          <div class="section-subtitle">Corporate identity of the registered entity applying for operational authorisation</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="alert" style="background:#f0fdf4;border-color:#86efac;border-left-color:#16a34a;margin-bottom:20px;">
+          <div class="alert-icon"><svg viewBox="0 0 24 24" style="fill:#16a34a"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm-1 13.5l-3-3 1.4-1.4 1.6 1.6 4.6-4.6 1.4 1.4-6 6z"/></svg></div>
+          <div class="alert-body">
+            <div class="alert-title" style="color:#166534">Pre-filled from Construction Registration</div>
+            <div class="alert-text" style="color:#15803d">Corporate details below are pre-populated from your approved Stage 1 application. Verify each field and correct any changes since the Construction Registration was granted.</div>
+          </div>
+        </div>
+
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">A1. Legal Name of Applicant <span class="req">*</span></label>
+            <div class="field-hint">Full legal name exactly as registered with the Registrar of Companies</div>
+            <input type="text" placeholder="e.g. Accra Data Infrastructure Ghana Limited">
+          </div>
+        </div>
+
+        <div class="field-grid g2">
+          <div class="field">
+            <label class="field-label">A2. Commercial Registration Number <span class="req">*</span></label>
+            <input type="text" placeholder="CS-XXXXXX-XXXX">
+          </div>
+          <div class="field">
+            <label class="field-label">A3. Date of Incorporation <span class="req">*</span></label>
+            <input type="date">
+          </div>
+        </div>
+
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">A4. Registered Address in Ghana <span class="req">*</span></label>
+            <input type="text" placeholder="Street address, Area, City, Region">
+          </div>
+        </div>
+
+        <div class="field-grid g3">
+          <div class="field">
+            <label class="field-label">Legal Domicile (if different) — City</label>
+            <input type="text" placeholder="City">
+          </div>
+          <div class="field">
+            <label class="field-label">Province / State</label>
+            <input type="text" placeholder="Province or state">
+          </div>
+          <div class="field">
+            <label class="field-label">Country <span class="opt">(if different from Ghana)</span></label>
+            <input type="text" placeholder="Country">
+          </div>
+        </div>
+
+        <div class="divider-label"><span>Primary Contact Person</span></div>
+
+        <div class="field-grid g3">
+          <div class="field">
+            <label class="field-label">Full Name <span class="req">*</span></label>
+            <input type="text" placeholder="Full legal name">
+          </div>
+          <div class="field">
+            <label class="field-label">Title / Position <span class="req">*</span></label>
+            <input type="text" placeholder="e.g. CEO, Managing Director">
+          </div>
+          <div class="field">
+            <label class="field-label">National ID Type <span class="req">*</span></label>
+            <select>
+              <option value="">Select ID type…</option>
+              <option>Ghana Card (NIA)</option>
+              <option>Passport</option>
+              <option>Voter ID</option>
+              <option>DVLA License</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-grid g3">
+          <div class="field">
+            <label class="field-label">ID Number <span class="req">*</span></label>
+            <input type="text" placeholder="ID document number">
+          </div>
+          <div class="field">
+            <label class="field-label">Official Phone <span class="req">*</span></label>
+            <input type="tel" placeholder="+233 XX XXX XXXX">
+          </div>
+          <div class="field">
+            <label class="field-label">Official Email <span class="req">*</span></label>
+            <input type="email" placeholder="contact@company.com.gh">
+          </div>
+        </div>
+
+        <div class="field-grid g2">
+          <div class="field">
+            <label class="field-label">Company Website <span class="opt">(optional)</span></label>
+            <input type="url" placeholder="https://www.company.com.gh">
+          </div>
+          <div class="field">
+            <label class="field-label">Construction Registration Certificate No. <span class="req">*</span></label>
+            <div class="field-hint">Your issued Stage 1 Certificate reference</div>
+            <input type="text" placeholder="NITA-DC-CON-YYYY-XXXX">
+          </div>
+        </div>
+
+        <div class="divider-label"><span>Tax & Investment Registration</span></div>
+
+        <div class="check-stack">
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              Registered with Ghana Revenue Authority (GRA)
+              <small>Mandatory for all applicants</small>
+            </div>
+            <div style="min-width:170px">
+              <input type="text" placeholder="TIN Number" style="font-size:12px;padding:7px 11px;">
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              Registered with Ghana Investment Promotion Centre (GIPC)
+              <small>Required if foreign-owned or partially foreign-owned</small>
+            </div>
+            <div style="min-width:170px">
+              <input type="text" placeholder="GIPC Number" style="font-size:12px;padding:7px 11px;">
+            </div>
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION B: FINAL FACILITY & OPERATIONAL OVERVIEW
+    ══════════════════════════════════════════════ -->
+    <div class="form-section" id="sec-b">
+      <div class="section-head">
+        <div class="section-icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="section-meta">
+          <span class="section-tag">Section B</span>
+          <div class="section-title">Final Facility & Operational Overview</div>
+          <div class="section-subtitle">Confirm the as-built status of the facility and intended services upon commissioning</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="field-grid g2">
+          <div class="field">
+            <label class="field-label">B1. Data Centre Name <span class="req">*</span></label>
+            <input type="text" placeholder="Official name of the facility">
+          </div>
+          <div class="field">
+            <label class="field-label">B2. Date of Construction Completion <span class="req">*</span></label>
+            <div class="field-hint">Actual date construction works were completed</div>
+            <input type="date">
+          </div>
+        </div>
+
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">B3. Physical Location of Data Centre <span class="req">*</span></label>
+            <div class="field-hint">Final address and GPS coordinates as-built — must match the approved Construction Registration location</div>
+            <input type="text" placeholder="Street / Plot address, Area, City, Region, Ghana">
+          </div>
+        </div>
+
+        <div class="field-grid g3">
+          <div class="field">
+            <label class="field-label">GPS Latitude <span class="req">*</span></label>
+            <input type="text" placeholder="e.g. 5.6037">
+          </div>
+          <div class="field">
+            <label class="field-label">GPS Longitude <span class="req">*</span></label>
+            <input type="text" placeholder="e.g. -0.1870">
+          </div>
+          <div class="field">
+            <label class="field-label">Ghana Post GPS Code <span class="req">*</span></label>
+            <input type="text" placeholder="e.g. GA-123-4567">
+          </div>
+        </div>
+
+        <div class="divider-label"><span>B3 — As-Built Confirmation</span></div>
+
+        <div class="check-stack" style="margin-bottom:22px;">
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              <strong>B3. Confirmation of "As-Built" Status</strong>
+              <small>I confirm that the Data Centre has been constructed in accordance with the approved designs submitted during Stage 1 (Construction Registration). All as-built drawings and documents are uploaded in Section D of this application.</small>
+            </div>
+          </label>
+        </div>
+
+        <div class="field-grid g2">
+          <div class="field">
+            <label class="field-label">B4. Planned Operational Launch Date <span class="req">*</span></label>
+            <div class="field-hint">Date you intend to begin providing services to customers</div>
+            <input type="date">
+          </div>
+          <div class="field">
+            <label class="field-label">Achieved Tier Classification <span class="req">*</span></label>
+            <div class="field-hint">Confirmed tier of the as-built facility</div>
+            <select>
+              <option value="">Select achieved tier…</option>
+              <option>Tier III — Concurrently Maintainable (99.982% uptime)</option>
+              <option>Tier IV — Fault Tolerant (99.995% uptime)</option>
+              <option>Custom / Higher — specify below</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-grid g3">
+          <div class="field">
+            <label class="field-label">Total Gross Floor Area (as-built) <span class="req">*</span></label>
+            <input type="text" placeholder="sq. m">
+          </div>
+          <div class="field">
+            <label class="field-label">Actual White Space <span class="req">*</span></label>
+            <input type="text" placeholder="sq. m">
+          </div>
+          <div class="field">
+            <label class="field-label">Installed IT Load Capacity <span class="req">*</span></label>
+            <input type="number" placeholder="MW" step="0.1" min="0">
+          </div>
+        </div>
+
+        <div class="field-grid g3">
+          <div class="field">
+            <label class="field-label">Total Rack Units Installed <span class="req">*</span></label>
+            <input type="number" placeholder="e.g. 500">
+          </div>
+          <div class="field">
+            <label class="field-label">Number of Floors <span class="req">*</span></label>
+            <input type="number" placeholder="e.g. 3">
+          </div>
+          <div class="field">
+            <label class="field-label">Data Centre Class / Category <span class="req">*</span></label>
+            <select>
+              <option value="">Select…</option>
+              <option>Enterprise Data Centre</option>
+              <option>Colocation / Multi-tenant DC</option>
+              <option>Hyperscale Data Centre (5,000+ servers)</option>
+              <option>Edge / Modular Data Centre</option>
+              <option>Internet Exchange (IXP) Hosting Centre</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Description of the Data Centre Facility <span class="req">*</span></label>
+            <div class="field-hint">Provide a comprehensive description — sq. footage, rack space available, servers, service providers hosted, IT applications, connectivity, etc. (per Annex A, Box 4)</div>
+            <textarea placeholder="Describe the facility: total floor area, white space, rack capacity, installed power, cooling infrastructure, key service providers hosted, network connectivity (ISPs, IXP access), IT application services supported, etc."></textarea>
+          </div>
+        </div>
+
+        <div class="divider-label"><span>B5 — Types of Data Centre Services to be Provided</span></div>
+
+        <div class="check-stack">
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              Colocation Services
+              <small>Renting of secure rack space, power, bandwidth and physical security to customers who provide their own servers</small>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              Interconnection Services
+              <small>Physical cross-connects and interconnection between multiple tenants, ISPs and service providers</small>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              Hosting Services
+              <small>Dedicated hosting and managed hosting of client servers and applications</small>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              Cloud Computing Services — Infrastructure as a Service (IaaS)
+              <small>On-demand shared compute, storage and networking resources delivered via network</small>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              Cloud Computing Services — Platform as a Service (PaaS)
+              <small>Managed platform environment for customers to develop and host applications</small>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              Cloud Computing Services — Software as a Service (SaaS)
+              <small>Note: If you are a separate legal entity providing only cloud services on this infrastructure, you are exempt from this registration (Art. 4.2b), but this Data Centre must be registered.</small>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">Other Services (please specify):</div>
+            <input type="text" placeholder="Describe the service…" style="flex:1;min-width:140px;font-size:12.5px;padding:7px 11px;">
+          </label>
+        </div>
+
+        <div class="divider-label"><span>B6 — Carrier Neutrality & Open Access</span></div>
+
+        <div class="check-stack">
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              <strong>B6. Carrier Neutrality Confirmation</strong>
+              <small>I confirm that this Data Centre is and will remain Carrier Neutral — allowing interconnection between multiple licensed electronic communications service providers and colocation providers on non-discriminatory terms, in accordance with Article 7.1(b)–(c) of the Regulatory Framework.</small>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              <strong>Open Access Commitment</strong>
+              <small>I confirm that the Data Centre provides open, non-discriminatory access to its facilities and services to all licensed operators and customers. Service pricing and standard terms will be published on the company website.</small>
+            </div>
+          </label>
+        </div>
+
+        <div class="divider-label"><span>B7 — Commencement Date & Service History</span></div>
+
+        <div class="field-grid g2">
+          <div class="field">
+            <label class="field-label">B7. Date Services Commenced / Expected to Commence <span class="req">*</span></label>
+            <div class="field-hint">Format: DD/MM/YYYY</div>
+            <input type="date">
+          </div>
+          <div class="field">
+            <label class="field-label">International Standards Certifications Held <span class="opt">(optional)</span></label>
+            <div class="field-hint">e.g. ANSI/TIA-942, ISO 27001, ISO 22237, Uptime Institute Tier Certification, EN 50600, SOC2, PCI/DSS</div>
+            <input type="text" placeholder="List certifications held or planned…">
+          </div>
+        </div>
+
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Planned International Standards & Certifications <span class="opt">(optional)</span></label>
+            <div class="field-hint">List all international standards and certifications the applicant intends to voluntarily comply with (per Article 9.2 of the Regulatory Framework)</div>
+            <textarea placeholder="e.g. Planning to achieve Uptime Institute Tier III Certification by Q2 2026, ISO/IEC 27001 by Q4 2026, ANSI/TIA-942-B rating for design…" style="min-height:70px;"></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION C: DECLARATION OF FINAL APPROVALS
+    ══════════════════════════════════════════════ -->
+    <div class="form-section" id="sec-c">
+      <div class="section-head">
+        <div class="section-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="section-meta">
+          <span class="section-tag">Section C</span>
+          <div class="section-title">Declaration of Final Operational Approvals</div>
+          <div class="section-subtitle">All permits listed must be the final operational versions — not preliminary or provisional approvals</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <p style="font-size:13px;color:var(--s500);margin-bottom:20px;line-height:1.75;">
+          The Applicant declares that it has obtained all necessary <strong>final operational approvals</strong> from the relevant Competent Authorities listed below. Certified copies of all obtained documents must be attached. Items marked <em>"Committed"</em> must be obtained and submitted before the Operational Certificate is issued.
+        </p>
+
+        <div class="group-head"><div class="group-label">C.1 — Post-Construction & Regulatory Authority Sign-offs</div><div class="group-head-line"></div></div>
+        <table class="comp-table" style="margin-bottom:22px;">
+          <thead>
+            <tr>
+              <th>Competent Authority</th>
+              <th>Approval / Certificate</th>
+              <th style="width:80px;text-align:center">Obtained</th>
+              <th style="width:80px;text-align:center">Committed</th>
+              <th>Reference Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>NITA <span class="ref-num">(Post-Construction)</span></td>
+              <td>Final Site Inspection Sign-off — Stage 1 Construction</td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c1a"></div></td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c1a"></div></td>
+              <td><input type="text" placeholder="NITA ref." style="font-size:12px;padding:6px 10px;"></td>
+            </tr>
+            <tr>
+              <td>Ghana National Fire Service (GNFS)</td>
+              <td>Final Fire Safety Certificate (operational)</td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c1b"></div></td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c1b"></div></td>
+              <td><input type="text" placeholder="GNFS Cert. No." style="font-size:12px;padding:6px 10px;"></td>
+            </tr>
+            <tr>
+              <td>Environmental Protection Agency (EPA)</td>
+              <td>Operational Environmental Compliance Permit</td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c1c"></div></td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c1c"></div></td>
+              <td><input type="text" placeholder="EPA Permit No." style="font-size:12px;padding:6px 10px;"></td>
+            </tr>
+            <tr>
+              <td>Energy Commission / Utility Provider</td>
+              <td>Confirmation of utility connections and operational approvals</td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c1d"></div></td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c1d"></div></td>
+              <td><input type="text" placeholder="EC Ref. No." style="font-size:12px;padding:6px 10px;"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="group-head"><div class="group-label">C.2 — Data Protection & Cybersecurity</div><div class="group-head-line"></div></div>
+        <table class="comp-table" style="margin-bottom:22px;">
+          <thead>
+            <tr>
+              <th>Competent Authority</th>
+              <th>Requirement</th>
+              <th style="width:80px;text-align:center">Obtained</th>
+              <th style="width:80px;text-align:center">Committed</th>
+              <th>Reference / Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Data Protection Commission (DPC)</td>
+              <td>Registration under Data Protection Act, 2012 (Act 843)</td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c2a"></div></td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c2a"></div></td>
+              <td><input type="text" placeholder="DPC Reg. No." style="font-size:12px;padding:6px 10px;"></td>
+            </tr>
+            <tr>
+              <td>Cybersecurity Authority of Ghana</td>
+              <td>Compliance with Cybersecurity Act, 2020</td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c2b"></div></td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c2b"></div></td>
+              <td><input type="text" placeholder="Reference No." style="font-size:12px;padding:6px 10px;"></td>
+            </tr>
+            <tr>
+              <td>Internal — DPIA Completed</td>
+              <td>Data Protection Impact Assessment (prior to operations)</td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c2c"></div></td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c2c"></div></td>
+              <td><input type="text" placeholder="DPIA Date / Ref." style="font-size:12px;padding:6px 10px;"></td>
+            </tr>
+            <tr>
+              <td>Internal — Data Residency</td>
+              <td>Signed declaration — Government & regulated data hosted within Ghana</td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c2d"></div></td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c2d"></div></td>
+              <td><input type="text" placeholder="Declaration Date" style="font-size:12px;padding:6px 10px;"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="group-head"><div class="group-label">C.3 — National Communications & Insurance</div><div class="group-head-line"></div></div>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Competent Authority</th>
+              <th>Requirement</th>
+              <th style="width:80px;text-align:center">Obtained</th>
+              <th style="width:80px;text-align:center">Committed</th>
+              <th>Reference / Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>National Communications Authority (NCA)</td>
+              <td>Any applicable NCA licensing (if providing electronic comms services)</td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c3a"></div></td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c3a"></div></td>
+              <td><input type="text" placeholder="NCA Ref. / N/A" style="font-size:12px;padding:6px 10px;"></td>
+            </tr>
+            <tr>
+              <td>National Insurance Commission (NIC)</td>
+              <td>Compliance with National Insurance Act, 2021 (facility/asset insurance)</td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c3b"></div></td>
+              <td><div class="radio-pair" style="justify-content:center"><input type="radio" name="c3b"></div></td>
+              <td><input type="text" placeholder="Policy / Ref. No." style="font-size:12px;padding:6px 10px;"></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION D: TECHNICAL & OPERATIONAL DOCUMENTATION (AS-BUILT)
+    ══════════════════════════════════════════════ -->
+    <div class="form-section" id="sec-d">
+      <div class="section-head">
+        <div class="section-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="section-meta">
+          <span class="section-tag">Section D</span>
+          <div class="section-title">Technical & Operational Documentation (As-Built)</div>
+          <div class="section-subtitle">Upload final as-built versions of all technical documents — must reflect the actual completed facility, not original design drawings</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="alert" style="margin-bottom:22px;">
+          <div class="alert-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 15h-2v-4h2v4zm0-6h-2V7h2v4z"/></svg></div>
+          <div class="alert-body">
+            <div class="alert-title">Upload Requirements</div>
+            <div class="alert-text">Documents must be <strong>final as-built versions</strong>. Accepted formats: PDF, DWG, DOCX, XLSX. Maximum 50MB per file. Each document must include a cover sheet signed by a licensed professional. Tick the checkbox once a file has been successfully attached.</div>
+          </div>
+        </div>
+
+        <div class="group-head"><div class="group-label">D.1 — As-Built Architectural, Structural, Electrical, Mechanical & Network Drawings</div><div class="group-head-line"></div></div>
+        <div class="upload-list" style="margin-bottom:22px;">
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">D1</div>
+            <div class="upload-info">
+              <strong>As-Built Architectural, Structural, Electrical, Mechanical & Network Layouts</strong>
+              <span>Final scaled drawings reflecting the completed construction for all categories — floor plans, structural framing, electrical SLDs, HVAC schematics, and network cabling layouts. Must match physical facility.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+        </div>
+
+        <div class="group-head"><div class="group-label">D.2 — System Certification & Commissioning Reports</div><div class="group-head-line"></div></div>
+        <div class="upload-list" style="margin-bottom:22px;">
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">D2</div>
+            <div class="upload-info">
+              <strong>System Certification Reports</strong>
+              <span>Certificates of installed and tested systems — UPS, backup generators, HVAC/cooling, fire suppression — confirming systems are installed and functioning as designed.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">D3</div>
+            <div class="upload-info">
+              <strong>Testing & Commissioning Reports</strong>
+              <span>Final test reports for all major systems: electrical load bank testing, UPS certification, cooling system airflow balancing, fire alarm and suppression testing, power redundancy tests.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+        </div>
+
+        <div class="group-head"><div class="group-label">D.3 — Security & Monitoring Systems</div><div class="group-head-line"></div></div>
+        <div class="upload-list" style="margin-bottom:22px;">
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">D4</div>
+            <div class="upload-info">
+              <strong>Final Security & Monitoring Systems Documentation</strong>
+              <span>As-built diagrams and configuration summaries for CCTV camera network (continuous operation), biometric/multi-factor access control systems, intrusion detection systems, and security zone configurations.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+        </div>
+
+        <div class="group-head"><div class="group-label">D.4 — Disaster Recovery & Business Continuity</div><div class="group-head-line"></div></div>
+        <div class="upload-list" style="margin-bottom:22px;">
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">D5</div>
+            <div class="upload-info">
+              <strong>Disaster Recovery & Business Continuity Plan (BCP)</strong>
+              <span>Comprehensive document outlining procedures for maintaining or rapidly resuming mission-critical functions in the event of a disaster, in line with ISO 22301 principles. Must include RTO/RPO targets, failover procedures, and emergency contact protocols.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+        </div>
+
+        <div class="group-head"><div class="group-label">D.5 — Licensed Operators & Partners</div><div class="group-head-line"></div></div>
+        <div class="upload-list" style="margin-bottom:22px;">
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">D6</div>
+            <div class="upload-info">
+              <strong>List of Licensed Operators / Partners</strong>
+              <span>A list of all licensed Electronic Communications Service Providers that have been onboarded or have executed agreements to colocate at the facility. Include company names, licence numbers, and service descriptions.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+        </div>
+
+        <!-- Technical Plans Subsection -->
+        <div class="divider-label"><span>Technical Plans — Power, Cooling, Telecom, Security</span></div>
+        <p style="font-size:12.5px;color:var(--s500);margin-bottom:16px;line-height:1.65;">
+          Provide written descriptions of the implemented systems below. These complement the as-built drawings uploaded above and align with the requirements of Article 6.2(c) of the Regulatory Framework.
+        </p>
+
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Power Systems Design (as-built) <span class="req">*</span></label>
+            <div class="field-hint">Describe UPS configuration, backup generators, power distribution, redundancy paths, earthing/lightning protection, and load segregation as actually implemented</div>
+            <textarea placeholder="e.g. Dual utility feeds from ECG, 3× 1MW diesel generators (N+1), 2N UPS configuration, ATS switchover in <20ms, tier-level power distribution…"></textarea>
+          </div>
+        </div>
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Disaster Redundancy & Recovery Plan <span class="req">*</span></label>
+            <div class="field-hint">Describe implemented redundancy mechanisms and recovery procedures — aligns with ISO 22301</div>
+            <textarea placeholder="e.g. Active-active redundancy for all critical systems, RTO of 15 minutes, RPO of 4 hours, geographic backup facility at…"></textarea>
+          </div>
+        </div>
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Physical Security Systems (as-built) <span class="req">*</span></label>
+            <div class="field-hint">CCTV coverage, biometric/MFA access points, perimeter controls, security zones, and staffed security operations centre</div>
+            <textarea placeholder="e.g. 128-camera CCTV system with 90-day NVR retention, fingerprint + card-based multi-factor access at 4 security zones, 24/7 manned SOC…"></textarea>
+          </div>
+        </div>
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Cybersecurity & Information Security Controls <span class="req">*</span></label>
+            <div class="field-hint">Implemented cybersecurity controls — aligns with Cybersecurity Act 2020 and standards such as ISO 27001, NIST SP 800-53, SOC2</div>
+            <textarea placeholder="e.g. ISO 27001:2022 certified ISMS, network segmentation with next-gen firewalls, DDoS mitigation, quarterly penetration testing…"></textarea>
+          </div>
+        </div>
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Cooling Systems Design (as-built) <span class="req">*</span></label>
+            <div class="field-hint">CRAC/CRAH units, airflow management, hot/cold aisle containment, PUE achieved</div>
+            <textarea placeholder="e.g. 12× CRAC units (N+1), closed-loop hot-aisle containment, target PUE 1.4, free-cooling economizers, temperature monitoring grid…"></textarea>
+          </div>
+        </div>
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Telecommunications Cabling Infrastructure (as-built) <span class="req">*</span></label>
+            <div class="field-hint">Fibre and copper routing, standards compliance (TIA-942, ISO/IEC 11801), redundant carrier paths, ER/MDA/EDA designations</div>
+            <textarea placeholder="e.g. TIA-942 compliant structured cabling, 3× diverse carrier entry points, dual MMF/SMF backbone, Entrance Room, MDA and 4× EDA zones…"></textarea>
+          </div>
+        </div>
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Safety Management Plan <span class="req">*</span></label>
+            <div class="field-hint">Fire detection and suppression systems, emergency procedures, evacuation plans, occupational health and safety</div>
+            <textarea placeholder="e.g. VESDA early smoke detection, FM-200 gas suppression in critical zones, wet pipe sprinklers in non-critical areas, quarterly fire drills…"></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION E: GOVERNANCE, POLICY & COMPLIANCE DOCUMENTS
+    ══════════════════════════════════════════════ -->
+    <div class="form-section" id="sec-e">
+      <div class="section-head">
+        <div class="section-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="section-meta">
+          <span class="section-tag">Section E</span>
+          <div class="section-title">Governance, Policy & Compliance Documents</div>
+          <div class="section-subtitle">In accordance with Articles 6 & 7 of the Regulatory Framework, and Schedules 2 & 3 of the Licensing Guide</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="group-head"><div class="group-label">E.1 — Data Protection & Residency</div><div class="group-head-line"></div></div>
+        <div class="upload-list" style="margin-bottom:22px;">
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">E1</div>
+            <div class="upload-info">
+              <strong>Data Protection Policy</strong>
+              <span>Comprehensive policy compliant with the Data Protection Act, 2012 (Act 843), outlining how personal data will be processed, stored and protected. Must address principles in Act 843 including lawful basis, data subject rights, retention and security.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">E2</div>
+            <div class="upload-info">
+              <strong>Data Protection Impact Assessment (DPIA)</strong>
+              <span>A report identifying risks to data subjects and assessing technical/organisational safeguards — particularly required for facilities that process or host personal data, sensitive Government data, or regulated sector data (Schedule 3). Must identify risks and mitigation measures.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">E3</div>
+            <div class="upload-info">
+              <strong>Data Residency Confirmation — Signed Declaration</strong>
+              <span>A signed statutory declaration confirming that Government data and all other regulated data categories (as per Schedule 3 — MDAs, MMDAs, national security data, financial, health, telecoms sector data) will be hosted and retained physically within Ghana unless otherwise authorised by a Competent Authority.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+        </div>
+
+        <!-- Data Residency Schedule 3 Info -->
+        <div style="background:var(--s50);border:1px solid var(--s150);border-radius:var(--radius-md);padding:16px 18px;margin-bottom:22px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--s400);margin-bottom:10px;">Schedule 3 — Categories Requiring In-Country Hosting</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div class="check-item" style="padding:10px 13px;">
+              <input type="checkbox">
+              <div class="check-label" style="font-size:12px;">Government Data (MDAs, MMDAs, state enterprises, statutory registries)</div>
+            </div>
+            <div class="check-item" style="padding:10px 13px;">
+              <input type="checkbox">
+              <div class="check-label" style="font-size:12px;">National Security & Critical State Information</div>
+            </div>
+            <div class="check-item" style="padding:10px 13px;">
+              <input type="checkbox">
+              <div class="check-label" style="font-size:12px;">Financial Services & Banking Data (Bank of Ghana regulated)</div>
+            </div>
+            <div class="check-item" style="padding:10px 13px;">
+              <input type="checkbox">
+              <div class="check-label" style="font-size:12px;">Health & Medical Patient Data (Ministry of Health)</div>
+            </div>
+            <div class="check-item" style="padding:10px 13px;">
+              <input type="checkbox">
+              <div class="check-label" style="font-size:12px;">Telecommunications Subscriber & Traffic Data (NCA)</div>
+            </div>
+            <div class="check-item" style="padding:10px 13px;">
+              <input type="checkbox">
+              <div class="check-label" style="font-size:12px;">Personal Data under Act 843</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group-head"><div class="group-label">E.2 — Customer & Operational Policies</div><div class="group-head-line"></div></div>
+        <div class="upload-list" style="margin-bottom:22px;">
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">E4</div>
+            <div class="upload-info">
+              <strong>Customer Service & Support Policy</strong>
+              <span>Guidelines and procedures for customer support, complaint resolution, and service delivery. Must include Service Level Agreements (SLAs) with specific uptime guarantees, support response times, and escalation procedures.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">E5</div>
+            <div class="upload-info">
+              <strong>Incident Report Form (Template)</strong>
+              <span>Standard company form for recording and reporting all undesirable incidents: security breaches, equipment malfunctions, power outages, safety violations, workplace accidents, and data breaches. Must include date/time, affected systems, witnesses, causes and remediation actions.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">E6</div>
+            <div class="upload-info">
+              <strong>Master Service Agreement (Template MSA)</strong>
+              <span>Template contract governing relationships with all customers — must cover service terms and conditions, account suspension and termination procedures, limits of liability, dispute resolution mechanisms, and data protection obligations.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+        </div>
+
+        <div class="group-head"><div class="group-label">E.3 — Sustainability & Local Development</div><div class="group-head-line"></div></div>
+        <div class="upload-list" style="margin-bottom:22px;">
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">E7</div>
+            <div class="upload-info">
+              <strong>Renewable Energy & Energy Efficiency Plan</strong>
+              <span>Description of plans and current implementation for use of renewable energy sources (solar, wind, etc.), targets and timeframes, list of energy-efficient equipment and technologies deployed, and current PUE achieved. Aligns with Article 6.2(i) and Renewable Energy Act, 2011.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+          <div class="upload-row">
+            <input type="checkbox">
+            <div class="upload-ref">E8</div>
+            <div class="upload-info">
+              <strong>Local Staffing & ICT Training Report</strong>
+              <span>Report detailing number of local Ghanaian staff hired, their salary tiers and levels, and any ICT training programmes implemented to develop local professionals. Aligns with Article 6.2(j) and national ICT workforce development objectives.</span>
+            </div>
+            <button class="upload-cta" type="button">Upload</button>
+          </div>
+        </div>
+
+        <!-- Renewable energy targets table -->
+        <div class="divider-label"><span>Renewable Energy & Local Staffing Declarations</span></div>
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Renewable Energy Targets & Sources <span class="req">*</span></label>
+            <div class="field-hint">Describe current renewable energy sources, targets, and timeframes. List energy-efficient equipment and technologies deployed at the facility.</div>
+            <textarea placeholder="Targets: 30% renewable energy by 2027&#10;Sources: 200kW rooftop solar PV installed, GreenPower grid certificates&#10;Energy-efficient equipment: EC fan CRAC units, hot-aisle containment, LED lighting, intelligent PDUs…"></textarea>
+          </div>
+        </div>
+        <div class="field-grid g2">
+          <div class="field">
+            <label class="field-label">Number of Local Ghanaian Staff Hired <span class="req">*</span></label>
+            <input type="number" placeholder="e.g. 45" min="0">
+          </div>
+          <div class="field">
+            <label class="field-label">ICT Training Programmes Offered <span class="req">*</span></label>
+            <input type="text" placeholder="e.g. CISCO CCNA sponsorship, Data Centre Operations Cert…">
+          </div>
+        </div>
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Salary Tiers & Levels for Local Staff <span class="req">*</span></label>
+            <div class="field-hint">Provide proposed/actual salary tiers for all local hire positions</div>
+            <textarea placeholder="e.g. Data Centre Technicians: GHS 4,500–6,000/month; Network Engineers: GHS 8,000–12,000/month; NOC Operators: GHS 5,500–7,500/month…" style="min-height:70px;"></textarea>
+          </div>
+        </div>
+
+        <div class="divider-label"><span>Website & Public Disclosure Commitments</span></div>
+        <div class="field-grid g1">
+          <div class="field">
+            <label class="field-label">Website URL where services & pricing will be published <span class="req">*</span></label>
+            <div class="field-hint">As required by Article 7.1(d) — full list of services and standard price list must be published publicly</div>
+            <input type="url" placeholder="https://www.company.com.gh/services">
+          </div>
+        </div>
+        <div class="check-stack">
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              I confirm that the company's Data Protection Policy is or will be published on the company website, as required by Article 7.1(e) of the Regulatory Framework. <span class="req">*</span>
+            </div>
+          </label>
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              I will comply with all annual reporting requirements that NITA may establish, including notification of any changes in services or their terms and conditions, as required by Article 7.1(i). <span class="req">*</span>
+            </div>
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION F: DECLARATION & SIGNATURE
+    ══════════════════════════════════════════════ -->
+    <div class="form-section" id="sec-f">
+      <div class="section-head">
+        <div class="section-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+        </div>
+        <div class="section-meta">
+          <span class="section-tag">Section F</span>
+          <div class="section-title">Declaration & Authorised Signature</div>
+          <div class="section-subtitle">Statutory declaration by an authorised officer of the applicant entity under the laws of the Republic of Ghana</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="decl-box">
+          <p>I, the undersigned, hereby declare that I am <strong>duly authorised</strong> to make this application on behalf of the applicant entity named in Section A. I declare under penalty of perjury under the laws of the Republic of Ghana that the foregoing information, and all attachments, are <strong>true, correct, and complete</strong> to the best of my knowledge and belief after due inquiry.</p>
+          <p>I further understand and acknowledge that:</p>
+          <ul class="decl-list">
+            <li>Issuance of the Operational Certificate <strong>authorises the provision of Data Centre Services to the public for a fee</strong> under the laws of Ghana.</li>
+            <li>This registration is subject to <strong>ongoing compliance, inspection, and monitoring</strong> by NITA as per Articles 8 and 11 of the Regulations. I commit to cooperating fully with all NITA requests for information and site visits (minimum 30 days' notice).</li>
+            <li>I must comply with all <strong>annual reporting requirements</strong> that NITA may establish, including notification of any changes in services or their terms and conditions.</li>
+            <li>This Operational Registration is <strong>valid for 5 years</strong> from the date of issuance and must be renewed thereafter in the manner determined by NITA.</li>
+            <li>Non-compliance with these Regulations may result in suspension or revocation of the registration, and financial penalties of up to <strong>nine thousand penalty units</strong> under Article 8.6 of the Regulations.</li>
+            <li>I commit to <strong>data residency obligations</strong> — all Government and regulated data will be hosted and retained physically within Ghana unless authorised otherwise by a Competent Authority.</li>
+            <li>Providing <strong>false or misleading information</strong> in this application constitutes an offence under the laws of the Republic of Ghana.</li>
+          </ul>
+        </div>
+
+        <div class="field-grid g3">
+          <div class="field">
+            <label class="field-label">Full Name of Signatory <span class="req">*</span></label>
+            <input type="text" placeholder="Full legal name">
+          </div>
+          <div class="field">
+            <label class="field-label">Designation / Position <span class="req">*</span></label>
+            <input type="text" placeholder="e.g. CEO, Managing Director">
+          </div>
+          <div class="field">
+            <label class="field-label">Date of Signing <span class="req">*</span></label>
+            <input type="date">
+          </div>
+        </div>
+
+        <div class="field-grid g2" style="margin-top:8px;">
+          <div class="field">
+            <label class="field-label">Signature <span class="req">*</span></label>
+            <div class="sig-box" tabindex="0" role="button" aria-label="Click to sign digitally">
+              <svg viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Click to sign digitally</span>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label">Company Seal / Stamp <span class="opt">(if applicable)</span></label>
+            <div class="sig-box" tabindex="0" role="button" aria-label="Upload company seal image">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Upload seal / stamp image</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="check-stack" style="margin-top:20px;">
+          <label class="check-item">
+            <input type="checkbox">
+            <div class="check-label">
+              <strong>I have read, understood, and I agree to all declarations above. <span class="req">*</span></strong>
+              <small>By checking this box you confirm the statutory declaration under the laws of the Republic of Ghana.</small>
+            </div>
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION G: NITA INTERNAL REVIEW (LOCKED)
+    ══════════════════════════════════════════════ -->
+    <div class="form-section" id="sec-g">
+      <div class="section-head locked">
+        <div class="section-icon-wrap" style="background:var(--s100);border-color:var(--s200);">
+          <svg viewBox="0 0 24 24" style="stroke:var(--s400)"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <div class="section-meta">
+          <span class="section-tag" style="background:var(--s200);color:var(--s500);">Section G</span>
+          <div class="section-title" style="color:var(--s500);">
+            NITA Internal Review
+            <span class="locked-tag">🔒 NITA USE ONLY</span>
+          </div>
+          <div class="section-subtitle">This section is completed exclusively by authorised NITA regulatory officers. Do not fill in.</div>
+        </div>
+      </div>
+      <div class="section-body" style="opacity:.5;pointer-events:none;">
+        <div class="field-grid g3">
+          <div class="field"><label class="field-label">Application ID</label><input type="text" placeholder="NITA-DC-OPR-YYYY-XXXX" disabled></div>
+          <div class="field"><label class="field-label">Date Received</label><input type="date" disabled></div>
+          <div class="field"><label class="field-label">Assigned Regulatory Officer</label><input type="text" placeholder="Officer name" disabled></div>
+        </div>
+        <div class="field-grid g2">
+          <div class="field"><label class="field-label">Application Review Decision</label>
+            <select disabled><option>Pending Review</option><option>Preliminary Acceptance Granted</option><option>Rejected — Incomplete</option><option>Rejected — Non-Compliant</option></select>
+          </div>
+          <div class="field"><label class="field-label">Notice of Preliminary Acceptance Date</label><input type="date" disabled></div>
+        </div>
+        <div class="field-grid g2">
+          <div class="field"><label class="field-label">Operational Compliance Site Inspection Date</label><input type="date" disabled></div>
+          <div class="field"><label class="field-label">Site Inspection Outcome</label>
+            <select disabled><option>Pending</option><option>Passed — Compliant</option><option>Failed — Non-compliant</option><option>Conditional — Remediation Required</option></select>
+          </div>
+        </div>
+        <div class="field-grid g1">
+          <div class="field"><label class="field-label">NITA Officer Compliance Notes</label><textarea disabled placeholder="Internal regulatory notes…" style="min-height:70px;"></textarea></div>
+        </div>
+        <div class="field-grid g3">
+          <div class="field"><label class="field-label">Operational Certificate Number</label><input type="text" placeholder="NITA-DC-OPR-CERT-XXXX" disabled></div>
+          <div class="field"><label class="field-label">Certificate Issue Date</label><input type="date" disabled></div>
+          <div class="field"><label class="field-label">Certificate Expiry Date</label><input type="date" disabled></div>
+        </div>
+        <div class="field-grid g1">
+          <div class="field"><label class="field-label">NITA Authorising Officer Signature</label>
+            <div class="sig-box" style="cursor:default;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         SECTION H: FEE PAYMENT
+    ══════════════════════════════════════════════ -->
+    <div class="form-section" id="sec-h">
+      <div class="section-head">
+        <div class="section-icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <div class="section-meta">
+          <span class="section-tag">Section H</span>
+          <div class="section-title">Operational Registration Fee Payment</div>
+          <div class="section-subtitle">As determined by NITA under Schedule 2 of the Regulations (Act 771)</div>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-card-label">Certificate Validity</div>
+            <div class="info-card-value">5 Years</div>
+            <div class="info-card-sub">Renewable at expiry</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-label">Fee Type</div>
+            <div class="info-card-value">Non-refundable</div>
+            <div class="info-card-sub">Condition precedent to processing</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-label">Fee Basis</div>
+            <div class="info-card-value">Tier & Scale</div>
+            <div class="info-card-sub">Based on size, tier & risk profile</div>
+          </div>
+        </div>
+
+        <div class="fee-row">
+          <div class="fee-card featured">
+            <div class="fee-card-label">Operational Registration Fee</div>
+            <div class="fee-card-amount">As determined by NITA</div>
+            <div class="fee-card-note">Non-refundable. Determined by tier classification, facility size, service category, and operational risk profile of the Data Centre. See Schedule 2.</div>
+          </div>
+          <div class="fee-card">
+            <div class="fee-card-label">Operational Site Inspection Fee</div>
+            <div class="fee-card-amount">TBD</div>
+            <div class="fee-card-note">Charged for the operational compliance inspection conducted after preliminary acceptance. Based on facility size and complexity.</div>
+          </div>
+          <div class="fee-card">
+            <div class="fee-card-label">Annual Monitoring Fee</div>
+            <div class="fee-card-amount">TBD</div>
+            <div class="fee-card-note">Periodic compliance inspection fees as charged by NITA under Schedule 2. Notified annually.</div>
+          </div>
+        </div>
+
+        <div class="alert" style="margin-bottom:22px;">
+          <div class="alert-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 15h-2v-4h2v4zm0-6h-2V7h2v4z"/></svg></div>
+          <div class="alert-body">
+            <div class="alert-title">Fee Payment Notice</div>
+            <div class="alert-text">Payment of the prescribed fee is a <strong>condition precedent</strong> to the processing of this Operational Registration application. The applicable fee is published at <a href="https://www.nita.gov.gh" style="color:var(--amber);font-weight:600">www.nita.gov.gh</a>. Contact NITA at <a href="/cdn-cgi/l/email-protection#2c45424a436c4245584d024b435a024b44" style="color:var(--amber);font-weight:600"><span class="__cf_email__" data-cfemail="c6afa8a0a986a8afb2a7e8a1a9b0e8a1ae">[email&#160;protected]</span></a> to confirm the current fee schedule before making payment.</div>
+          </div>
+        </div>
+
+        <div class="field-grid g2">
+          <div class="field">
+            <label class="field-label">Payment Method <span class="req">*</span></label>
+            <select>
+              <option value="">Select payment method…</option>
+              <option>Bank Transfer to NITA Official Account</option>
+              <option>Online Portal Payment (NITA e-Gov Portal)</option>
+              <option>Mobile Money — GhIPSS Interbank</option>
+              <option>Certified Bank Cheque (payable to NITA)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label">Transaction / Reference Number <span class="req">*</span></label>
+            <div class="field-hint">Bank transaction ID, portal reference, or cheque number</div>
+            <input type="text" placeholder="Transaction reference number">
+          </div>
+        </div>
+        <div class="field-grid g2">
+          <div class="field">
+            <label class="field-label">Date of Payment <span class="req">*</span></label>
+            <input type="date">
+          </div>
+          <div class="field">
+            <label class="field-label">Amount Paid (GHS) <span class="req">*</span></label>
+            <input type="number" placeholder="0.00" step="0.01" min="0">
+          </div>
+        </div>
+
+        <div class="field-grid g1" style="margin-top:4px;">
+          <div class="field">
+            <label class="field-label">Upload Official Payment Receipt <span class="req">*</span></label>
+            <div class="upload-row" style="border-style:solid;">
+              <div class="upload-ref" style="background:var(--g100);">RCT</div>
+              <div class="upload-info">
+                <strong>Attach official payment receipt</strong>
+                <span>PDF, JPG or PNG. Maximum 5MB. Must show transaction reference, amount, date and payee (NITA).</span>
+              </div>
+              <button class="upload-cta" type="button">Upload Receipt</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="form-footer">
+      <p>
+        National Information Technology Agency (NITA) — Competent Authority for Data Centre Services in Ghana<br>
+        3rd Floor, Ministry of Communications Office Complex, Abdul Diouf Road, Ridge, Accra<br>
+        Tel: <a href="tel:+233302661777">+233-0302-661777</a> &nbsp;·&nbsp; Fax: +233-0302-661800 &nbsp;·&nbsp;
+        Email: <a href="/cdn-cgi/l/email-protection#d6bfb8b0b996b8bfa2b7f8b1b9a0f8b1be"><span class="__cf_email__" data-cfemail="cea7a0a8a18ea0a7baafe0a9a1b8e0a9a6">[email&#160;protected]</span></a> &nbsp;·&nbsp;
+        <a href="https://www.nita.gov.gh">www.nita.gov.gh</a>
+      </p>
+      <p style="margin-top:6px;font-size:10.5px;">
+        Issued pursuant to the National Information Technology Agency Act, 2008 (Act 771) · Version 0.01
+      </p>
+    </div>
+
+  </main>
+</div><!-- end page-layout -->
+
+<!-- STICKY ACTION BAR -->
+<div class="action-bar" id="actionBar">
+  <div class="action-info">
+    <div class="action-info-title">Data Centre Operational Registration — Stage 2</div>
+    <div class="action-info-sub" id="draftStatus">NITA · Act 771 Compliant · Certificate valid 5 years</div>
+  </div>
+  <div class="action-btns">
+    <button class="btn btn-ghost" type="button" id="saveDraftBtn" onclick="saveDraft()">
+      <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      Save Draft
+    </button>
+    <button class="btn btn-outline" type="button" onclick="openPdf()">
+      <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3"/></svg>
+      Preview PDF
+    </button>
+    <button class="btn btn-primary" type="button" id="submitBtn" onclick="submitApplication()">
+      <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Submit Application
+    </button>
+  </div>
+</div>
+
+<!-- ══ PDF PREVIEW MODAL ══ -->
+<div class="pdf-overlay" id="pdfOverlay">
+  <div class="pdf-modal">
+    <div class="pdf-modal-hd">
+      <div class="pdf-modal-hd-left">
+        <div class="pdf-modal-title">Application Preview</div>
+        <div class="pdf-modal-sub">Draft preview — review your form before submitting via the NITA e-Government Portal</div>
+      </div>
+      <button class="pdf-close-btn" onclick="closePdf()" title="Close">✕</button>
+    </div>
+    <div class="pdf-toolbar">
+      <div class="pdf-toolbar-left">
+        <span class="pdf-draft-badge">Draft Preview</span>
+        <span class="pdf-toolbar-info">Operational Registration · Stage 2 of 2 · Act 771</span>
+      </div>
+      <button class="pdf-dl-btn" onclick="downloadPdf()">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </button>
+    </div>
+    <div class="pdf-body" id="pdfBody"><!-- filled by JS --></div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ═══════════════════════════════════
+   PROGRESS TRACKING
+═══════════════════════════════════ */
+function updateProgress() {
+  const inputs = document.querySelectorAll('input:not([disabled]):not([type=radio]):not([type=checkbox]),select:not([disabled]),textarea:not([disabled])');
+  const radios = document.querySelectorAll('input[type=radio]:not([disabled])');
+  const checks = document.querySelectorAll('input[type=checkbox]:not([disabled])');
+  let total = 0, filled = 0;
+  inputs.forEach(el => { total++; if (el.value && el.value.trim()) filled++; });
+  const rg = {};
+  radios.forEach(r => { if (!rg[r.name]) rg[r.name]=false; if (r.checked) rg[r.name]=true; });
+  Object.keys(rg).forEach(k => { total++; if (rg[k]) filled++; });
+  let ck = 0;
+  checks.forEach(c => { if (c.checked) ck++; });
+  total += Math.ceil(checks.length / 4);
+  filled += Math.min(ck, Math.ceil(checks.length / 4));
+  const pct = total > 0 ? Math.min(100, Math.round((filled / total) * 100)) : 0;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progPct').textContent  = pct + '%';
+}
+document.addEventListener('input',  updateProgress);
+document.addEventListener('change', updateProgress);
+updateProgress();
+
+/* ═══════════════════════════════════
+   SIDEBAR NAV
+═══════════════════════════════════ */
+const sections = document.querySelectorAll('.form-section[id]');
+const navLinks  = document.querySelectorAll('.nav-link');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, { rootMargin: '-25% 0px -65% 0px' });
+sections.forEach(s => io.observe(s));
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(link.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+/* ═══════════════════════════════════
+   FILE UPLOAD SYSTEM
+═══════════════════════════════════ */
+function fmtBytes(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(1) + ' MB';
+}
+function makeChip(file, onRemove) {
+  const chip = document.createElement('span');
+  chip.className = 'file-chip';
+  chip.innerHTML = '<svg class="file-chip-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8" fill="none" stroke="white" stroke-width="1.5"/></svg>'
+    + '<span class="file-chip-name" title="' + file.name + '">' + file.name + '</span>'
+    + '<span class="file-chip-size">' + fmtBytes(file.size) + '</span>';
+  const rm = document.createElement('button');
+  rm.className = 'file-chip-remove'; rm.type = 'button'; rm.title = 'Remove'; rm.textContent = '\u2715';
+  rm.addEventListener('click', e => { e.stopPropagation(); onRemove(file, chip); });
+  chip.appendChild(rm);
+  return chip;
+}
+function syncRow(btn, reg) {
+  const row = btn.closest('.upload-row');
+  const has = reg.files.length > 0;
+  if (row) row.classList.toggle('has-file', has);
+  if (reg.cb) reg.cb.checked = has;
+  btn.textContent = has ? reg.files.length + ' file' + (reg.files.length > 1 ? 's' : '') + ' \u2713' : (btn._origLabel || 'Upload');
+  btn.classList.toggle('uploaded', has);
+  updateProgress();
+}
+const upReg = new Map();
+function initCta(btn) {
+  btn._origLabel = btn.textContent.trim();
+  const input = document.createElement('input');
+  input.type = 'file'; input.multiple = true;
+  input.accept = '.pdf,.doc,.docx,.dwg,.xls,.xlsx,.jpg,.jpeg,.png';
+  input.style.display = 'none';
+  document.body.appendChild(input);
+  const row = btn.closest('.upload-row');
+  const cb  = row ? row.querySelector('input[type=checkbox]') : null;
+  let chipsWrap = row ? row.querySelector('.file-chips') : null;
+  if (!chipsWrap && row) {
+    chipsWrap = document.createElement('div');
+    chipsWrap.className = 'file-chips';
+    const info = row.querySelector('.upload-info');
+    if (info) info.appendChild(chipsWrap);
+  }
+  const reg = { files: [], hiddenInput: input, cb, chipsWrap };
+  upReg.set(btn, reg);
+  btn.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); input.click(); });
+  input.addEventListener('change', () => {
+    Array.from(input.files).forEach(f => {
+      if (reg.files.some(x => x.name === f.name && x.size === f.size)) return;
+      reg.files.push(f);
+      if (chipsWrap) chipsWrap.appendChild(makeChip(f, (removed, chipEl) => {
+        reg.files = reg.files.filter(x => x !== removed);
+        chipEl.remove();
+        syncRow(btn, reg);
+      }));
+    });
+    input.value = '';
+    syncRow(btn, reg);
+  });
+}
+document.querySelectorAll('.upload-cta').forEach(btn => initCta(btn));
+
+/* ═══════════════════════════════════
+   TOAST
+═══════════════════════════════════ */
+let _toastT;
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  document.getElementById('toastIcon').textContent = type === 'error' ? '!' : '\u2713';
+  t.className = 'toast ' + (type || '');
+  t.classList.add('show');
+  clearTimeout(_toastT);
+  _toastT = setTimeout(() => t.classList.remove('show'), 3400);
+}
+
+/* ═══════════════════════════════════
+   SAVE DRAFT  (localStorage)
+═══════════════════════════════════ */
+const DRAFT_KEY = 'nita_form2_draft';
+
+function collectDraft() {
+  const d = { fields: {}, checks: {}, savedAt: new Date().toISOString() };
+  document.querySelectorAll('input:not([disabled]):not([type=file]):not([type=radio]):not([type=checkbox]),select:not([disabled]),textarea:not([disabled])').forEach((el, i) => {
+    d.fields['f' + i] = el.value;
+  });
+  document.querySelectorAll('input[type=checkbox]:not([disabled]),input[type=radio]:not([disabled])').forEach((el, i) => {
+    d.checks['c' + i] = el.checked;
+  });
+  return d;
+}
+
+function applyDraft(d) {
+  if (!d) return;
+  const textEls = Array.from(document.querySelectorAll('input:not([disabled]):not([type=file]):not([type=radio]):not([type=checkbox]),select:not([disabled]),textarea:not([disabled])'));
+  textEls.forEach((el, i) => { if (d.fields && d.fields['f' + i] !== undefined) el.value = d.fields['f' + i]; });
+  const checkEls = Array.from(document.querySelectorAll('input[type=checkbox]:not([disabled]),input[type=radio]:not([disabled])'));
+  checkEls.forEach((el, i) => { if (d.checks && d.checks['c' + i] !== undefined) el.checked = d.checks['c' + i]; });
+  updateProgress();
+}
+
+function saveDraft() {
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(collectDraft()));
+    const t = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('draftStatus').innerHTML = 'Draft saved at ' + t + ' &nbsp;<span style="color:var(--g300)">&#10003;</span>';
+    const btn = document.getElementById('saveDraftBtn');
+    btn.style.background = 'var(--g100)'; btn.style.color = 'var(--g700)';
+    setTimeout(() => { btn.style.background = ''; btn.style.color = ''; }, 2600);
+    showToast('Draft saved successfully', 'success');
+  } catch(e) { showToast('Storage unavailable — draft not saved', 'error'); }
+}
+
+// Auto-save every 60 s
+setInterval(() => {
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(collectDraft()));
+    const t = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('draftStatus').innerHTML = 'Auto-saved at ' + t + ' &nbsp;<span style="color:var(--g300)">&#10003;</span>';
+  } catch(e) {}
+}, 60000);
+
+// Restore on load
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (raw) {
+      const d = JSON.parse(raw);
+      applyDraft(d);
+      const when = d.savedAt ? new Date(d.savedAt).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : 'previously';
+      showToast('Draft restored from ' + when, 'success');
+      document.getElementById('draftStatus').innerHTML = 'Restored from ' + when + ' &nbsp;<span style="color:var(--g300)">&#10003;</span>';
+    }
+  } catch(e) {}
+});
+
+/* ═══════════════════════════════════
+   VALIDATION
+═══════════════════════════════════ */
+function clearErrors() {
+  document.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+  document.querySelectorAll('.err-msg').forEach(el => el.remove());
+  const b = document.getElementById('valBanner');
+  if (b) { b.classList.remove('show'); document.getElementById('valList').innerHTML = ''; }
+}
+
+function validateForm() {
+  clearErrors();
+  const errors = [];
+
+  // Scan every .field that has a .req star
+  document.querySelectorAll('.field').forEach(fieldWrap => {
+    const label = fieldWrap.querySelector('.field-label');
+    if (!label || !label.querySelector('.req')) return;
+    const inp = fieldWrap.querySelector('input:not([disabled]):not([type=radio]):not([type=checkbox]),select:not([disabled]),textarea:not([disabled])');
+    if (!inp) return;
+    const empty = inp.type === 'checkbox' ? !inp.checked : !inp.value.trim();
+    if (empty) {
+      const labelText = label.textContent.replace('*','').trim();
+      errors.push({ label: labelText, el: inp, wrap: fieldWrap });
+    }
+  });
+
+  // Declaration checkbox in Section F
+  const declCb = document.querySelector('#sec-f input[type=checkbox]');
+  if (declCb && !declCb.checked) {
+    errors.push({ label: 'Declaration agreement (Section F)', el: declCb, wrap: declCb.closest('.check-item') });
+  }
+
+  if (errors.length > 0) {
+    errors.forEach(err => {
+      if (err.wrap) {
+        err.wrap.classList.add('field-error');
+        const msg = document.createElement('div');
+        msg.className = 'err-msg';
+        msg.textContent = 'This field is required';
+        err.wrap.appendChild(msg);
+      }
+    });
+    const banner = document.getElementById('valBanner');
+    const list   = document.getElementById('valList');
+    if (banner && list) {
+      list.innerHTML = '';
+      errors.forEach(err => {
+        const li = document.createElement('li');
+        li.textContent = err.label;
+        li.addEventListener('click', () => { if (err.el) { err.el.scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => err.el.focus(), 400); } });
+        list.appendChild(li);
+      });
+      banner.classList.add('show');
+      banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    showToast(errors.length + ' required field' + (errors.length > 1 ? 's' : '') + ' incomplete', 'error');
+    return false;
+  }
+  return true;
+}
+
+/* ═══════════════════════════════════
+   SUBMIT APPLICATION
+═══════════════════════════════════ */
+function genRef() {
+  return 'NITA-DC-OPR-' + new Date().getFullYear() + '-' + (Math.floor(Math.random() * 9000) + 1000);
+}
+
+function submitApplication() {
+  if (!validateForm()) return;
+
+  const btn = document.getElementById('submitBtn');
+  const origHTML = btn.innerHTML;
+  btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:spin 1s linear infinite;flex-shrink:0"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Submitting\u2026';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    btn.innerHTML = origHTML;
+    btn.disabled = false;
+    saveDraft();
+    document.getElementById('submissionRef').textContent = genRef();
+    document.getElementById('submitOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }, 1800);
+}
+
+function closeSubmitModal() {
+  document.getElementById('submitOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function copyRef() {
+  const ref = document.getElementById('submissionRef').textContent;
+  navigator.clipboard.writeText(ref).then(() => showToast('Reference number copied!', 'success'));
+}
+
+document.getElementById('submitOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeSubmitModal();
+});
+
+// Spin animation
+const ss = document.createElement('style');
+ss.textContent = '@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}';
+document.head.appendChild(ss);
+
+/* ═══════════════════════════════════
+   PDF PREVIEW — build & open
+═══════════════════════════════════ */
+function pdfR(label, value, full) {
+  const cls = full ? 'pdf-r full' : 'pdf-r';
+  return '<div class="' + cls + '"><div class="pdf-lbl">' + label + '</div><div class="pdf-val">' + (value || '\u2014') + '</div></div>';
+}
+function pdfSec(tag, title, body) {
+  return '<div class="pdf-sec"><div class="pdf-sec-hd">' + tag + ' \u2014 ' + title + '</div>' + body + '</div>';
+}
+
+function buildPdf() {
+  const inp = Array.from(document.querySelectorAll(
+    'input[type=text]:not([disabled]),input[type=email]:not([disabled]),input[type=tel]:not([disabled]),' +
+    'input[type=number]:not([disabled]),input[type=url]:not([disabled]),input[type=date]:not([disabled]),' +
+    'select:not([disabled]),textarea:not([disabled])'
+  ));
+  const v = i => inp[i] ? inp[i].value.trim() : '';
+
+  const secA = pdfSec('Section A','Applicant Information',
+    pdfR('A1. Legal Name', v(0)) + pdfR('A2. Reg. Number', v(1)) + pdfR('A3. Incorporation Date', v(2)) +
+    pdfR('Registered Address', v(3)) + pdfR('Stage 1 Cert. No.', v(4)) + pdfR('Primary Contact', v(5)) +
+    pdfR('Title / Position', v(6)) + pdfR('ID Type', v(7)) + pdfR('ID Number', v(8)) +
+    pdfR('Phone', v(9)) + pdfR('Email', v(10)) + pdfR('Website', v(11)) +
+    pdfR('GRA TIN', v(12)) + pdfR('GIPC Number', v(13)));
+
+  const secB = pdfSec('Section B','Final Facility & Operational Overview',
+    pdfR('B1. Data Centre Name', v(14)) + pdfR('B2. Construction Completed', v(15)) +
+    pdfR('Physical Location', v(16)) + pdfR('GPS Latitude', v(17)) + pdfR('GPS Longitude', v(18)) +
+    pdfR('Ghana Post GPS', v(19)) + pdfR('Tier Achieved', v(20)) + pdfR('Total Floor Area', v(21)) +
+    pdfR('Actual White Space', v(22)) + pdfR('IT Load (MW)', v(23)) + pdfR('Rack Units', v(24)) +
+    pdfR('No. of Floors', v(25)) + pdfR('DC Category', v(26)) + pdfR('Launch Date', v(27)) +
+    pdfR('Service Commencement', v(28)) + pdfR('Intl. Standards', v(29)) +
+    pdfR('Facility Description', v(30), true));
+
+  const compInp = Array.from(document.querySelectorAll('.comp-table input[type=text]'));
+  const cv = i => compInp[i] ? compInp[i].value.trim() : '';
+  const secC = pdfSec('Section C','Final Operational Approvals',
+    pdfR('NITA Post-Construction Sign-off', cv(0)) + pdfR('GNFS Fire Safety Cert.', cv(1)) +
+    pdfR('EPA Operational Permit', cv(2)) + pdfR('Energy Commission', cv(3)) +
+    pdfR('DPC Registration (Act 843)', cv(4)) + pdfR('Cybersecurity Authority', cv(5)) +
+    pdfR('DPIA Completed', cv(6)) + pdfR('Data Residency Declaration', cv(7)) +
+    pdfR('NCA Licensing', cv(8)) + pdfR('National Insurance', cv(9)));
+
+  let upRows = '';
+  upReg.forEach((reg, btn) => {
+    const row = btn.closest('.upload-row');
+    const lbl = row ? (row.querySelector('.upload-info strong') || {textContent:''}).textContent : 'Document';
+    const ref = row ? (row.querySelector('.upload-ref') || {textContent:''}).textContent : '';
+    const ok  = reg.files.length > 0;
+    upRows += '<div class="pdf-upload-row"><span class="pdf-up-ref">' + ref + '</span><span class="pdf-up-name">' + lbl + '</span><span class="pdf-up-status ' + (ok?'ok':'no') + '">' + (ok ? '\u2713 ' + reg.files.map(f=>f.name).join(', ') : 'Not uploaded') + '</span></div>';
+  });
+  const secD = pdfSec('Sections D+E','Document Uploads', upRows || '<p style="font-size:8pt;color:#999">No documents uploaded yet.</p>');
+
+  const ta = Array.from(document.querySelectorAll('textarea:not([disabled])'));
+  const tv = i => ta[i] ? ta[i].value.trim() : '';
+  const secDDesc = pdfSec('Section D','Technical System Descriptions',
+    pdfR('Power Systems Design', tv(0), true) + pdfR('Disaster Recovery & BCP', tv(1), true) +
+    pdfR('Physical Security Systems', tv(2), true) + pdfR('Cybersecurity Controls', tv(3), true) +
+    pdfR('Cooling Systems', tv(4), true) + pdfR('Telecoms Cabling', tv(5), true) +
+    pdfR('Safety Management Plan', tv(6), true));
+
+  const urlInp = inp.find(x => x.type === 'url');
+  const secEDesc = pdfSec('Section E','Governance & Sustainability',
+    pdfR('Renewable Energy Targets', tv(7), true) + pdfR('Salary Tiers', tv(8), true) +
+    pdfR('Website URL', urlInp ? urlInp.value.trim() : ''));
+
+  let cbRows = '';
+  document.querySelectorAll('input[type=checkbox]:not([disabled])').forEach(cb => {
+    const item = cb.closest('.check-item');
+    if (!item) return;
+    const txt = ((item.querySelector('.check-label') || {}).childNodes[0] || {}).textContent || '';
+    if (txt.trim().length > 3) cbRows += '<div class="pdf-cb-row"><div class="pdf-cb ' + (cb.checked?'on':'') + '">' + (cb.checked?'\u2713':'') + '</div><div class="pdf-cb-text">' + txt.trim().substring(0,120) + '</div></div>';
+  });
+  const secChecks = pdfSec('Declarations','Checked Confirmations', cbRows || '<p style="font-size:8pt;color:#999">None checked.</p>');
+
+  const sfInp = Array.from(document.querySelectorAll('#sec-f input[type=text],#sec-f input[type=date]'));
+  const sigName = sfInp[0] ? sfInp[0].value.trim() : '\u2014';
+  const sigPos  = sfInp[1] ? sfInp[1].value.trim() : '\u2014';
+  const sigDate = sfInp[2] ? sfInp[2].value.trim() : '\u2014';
+  const today   = new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' });
+
+  return '<div class="pdf-page" id="pdfPageEl"><div class="pdf-wm">DRAFT</div>'
+    + '<div class="pdf-ph"><div class="pdf-ph-logo"><div class="pdf-ph-mark"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11 4.5-.85 8-5.75 8-11V6l-8-4z"/></svg></div>'
+    + '<div><div class="pdf-org">NITA</div><div class="pdf-org-sub">National Information Technology Agency</div></div></div>'
+    + '<div class="pdf-ph-right"><div class="pdf-reg-type">Operational Registration</div><div class="pdf-ref-line">Stage 2 of 2 \u00b7 Draft \u00b7 ' + today + '</div></div></div>'
+    + '<div class="pdf-doc-title-block"><div class="pdf-doc-title">Data Centre Operational Registration</div>'
+    + '<div class="pdf-doc-subtitle">Application Form \u00b7 Pursuant to NITA Act, 2008 (Act 771) \u00b7 Certificate valid 5 years</div></div>'
+    + secA + secB + secC + secD + secDDesc + secEDesc + secChecks
+    + '<div class="pdf-sec"><div class="pdf-sec-hd">Section F \u2014 Declaration</div>'
+    + '<div class="pdf-decl">I, the undersigned, hereby declare that I am duly authorised to make this application on behalf of the applicant entity named in Section A. I declare under penalty of perjury under the laws of the Republic of Ghana that the foregoing information and all attachments are true, correct, and complete. I understand that the Operational Certificate authorises the provision of Data Centre Services to the public for a fee, that this registration is valid for 5 years, and that providing false or misleading information constitutes an offence under the laws of Ghana.</div>'
+    + '<div class="pdf-sig-grid">'
+    + '<div><div class="pdf-sig-lbl">Full Name of Signatory</div><div class="pdf-sig-line"></div><div class="pdf-sig-name">' + sigName + '</div></div>'
+    + '<div><div class="pdf-sig-lbl">Designation / Position</div><div class="pdf-sig-line"></div><div class="pdf-sig-name">' + sigPos + '</div></div>'
+    + '<div><div class="pdf-sig-lbl">Signature</div><div class="pdf-sig-line"></div></div>'
+    + '<div><div class="pdf-sig-lbl">Date of Signing</div><div class="pdf-sig-line"></div><div class="pdf-sig-name">' + sigDate + '</div></div>'
+    + '</div></div>'
+    + '<div class="pdf-pg-footer"><p>National Information Technology Agency (NITA) \u00b7 3rd Floor, Ministry of Communications Office Complex, Abdul Diouf Road, Ridge \u2013 Accra<br>'
+    + 'Tel: +233-0302-661777 \u00b7 Email: info@nita.gov.gh \u00b7 www.nita.gov.gh<br>'
+    + '<strong>This is a draft preview only. The official application must be submitted electronically via the NITA e-Government Portal.</strong></p></div>'
+    + '</div>';
+}
+
+function openPdf() {
+  document.getElementById('pdfBody').innerHTML = buildPdf();
+  document.getElementById('pdfOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePdf() {
+  document.getElementById('pdfOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('pdfOverlay').addEventListener('click', function(e) { if (e.target === this) closePdf(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePdf(); closeSubmitModal(); } });
+
+/* ═══════════════════════════════════
+   PDF DOWNLOAD
+═══════════════════════════════════ */
+function downloadPdf() {
+  if (!document.getElementById('pdfPageEl')) { openPdf(); setTimeout(downloadPdf, 350); return; }
+  const content = document.getElementById('pdfPageEl');
+  const cssText = Array.from(document.styleSheets)
+    .map(s => { try { return Array.from(s.cssRules).map(r => r.cssText).join('\n'); } catch(e2) { return ''; } })
+    .join('\n');
+  const win = window.open('', '_blank');
+  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8">'
+    + '<title>NITA \u2014 Data Centre Operational Registration \u2014 Draft</title>'
+    + '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">'
+    + '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:\'Outfit\',sans-serif;background:white;color:#1a1a1a;font-size:9.5pt}'
+    + '@page{margin:16mm 14mm;size:A4}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}'
+    + cssText
+    + '.pdf-page{box-shadow:none;max-width:100%;padding:0}.pdf-wm{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-35deg)}'
+    + '</style></head><body>'
+    + content.outerHTML
+    + '<scr' + 'ipt>window.onload=function(){setTimeout(function(){window.print();},400)}<\/scr' + 'ipt>'
+    + '</body></html>');
+  win.document.close();
+}
+</script>
+
+</body>
+</html>
